@@ -9,7 +9,6 @@ export default function Home() {
     const router = useRouter();
 
     // --- HIGH PERFORMANCE MOUSE TRACKER ---
-    // We track mouse once at the top level. No re-renders.
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
@@ -32,7 +31,8 @@ export default function Home() {
         hidden: { width: '120%' },
         visible: {
             width: '0%',
-            transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }
+            // FIX: Changed specific numbers to "easeInOut" to fix TypeScript error
+            transition: { duration: 1.2, ease: "easeInOut", delay: 0.1 }
         }
     };
 
@@ -69,7 +69,7 @@ export default function Home() {
                 style={{
                     background: useMotionTemplate`radial-gradient(500px circle at ${mouseX}px ${mouseY}px, rgba(212, 175, 55, 0.12), transparent 80%)`,
                     position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none',
-                    willChange: 'background' // Hint to browser to optimize
+                    willChange: 'background'
                 }}
             />
 
@@ -83,7 +83,7 @@ export default function Home() {
             {/* --- HERO --- */}
             <section style={{ height: '90vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative', zIndex: 10, padding: '20px' }}>
 
-                {/* Breathing Glow (CSS Keyframes would be faster, but Motion is fine here if static) */}
+                {/* Breathing Glow */}
                 <motion.div
                     animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -173,12 +173,8 @@ export default function Home() {
     );
 }
 
-// --- OPTIMIZED CARD COMPONENT (Zero State Re-renders) ---
+// --- OPTIMIZED CARD COMPONENT ---
 function ServiceCard({ service, index, colors }: { service: any, index: number, colors: any }) {
-    // WE REMOVED "useState" HERE.
-    // Instead, we use Framer Motion's "initial", "whileHover" variants.
-    // This moves the animation work to the compositor thread (GPU) = 60 FPS.
-
     return (
         <motion.div
             initial="rest"
@@ -204,7 +200,7 @@ function ServiceCard({ service, index, colors }: { service: any, index: number, 
                 borderStyle: 'solid',
             }}
         >
-            {/* Shine Gradient (Hidden by default, opacity 1 on hover) */}
+            {/* Shine Gradient */}
             <motion.div
                 variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
                 transition={{ duration: 0.4 }}
