@@ -1,51 +1,72 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { COLORS } from '../constants';
 
 export default function Background() {
+    // 1. Track Mouse Position
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            // Updating state on every frame can be heavy, but for this effect it's necessary
+            // For extreme performance, we'd use useMotionValue, but this is React-safe and fast enough.
+            setMousePosition({ x: e.clientX, y: e.clientY });
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
+
     return (
         <div style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 0,
-            pointerEvents: 'none',
-            backgroundColor: COLORS.black, // Ensures deep black base
+            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+            zIndex: 0, pointerEvents: 'none', backgroundColor: COLORS.black, overflow: 'hidden'
         }}>
-            {/* GRID LAYER 
-               - Increased opacity to 0.15 (was 0.05) for better visibility
-               - Size set to 50px for a premium technical look
-            */}
-            <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
+
+            {/* --- LAYER 1: THE MOVING GRID (Always Visible but Faint) --- */}
+            <div className="moving-grid" style={{
+                position: 'absolute', inset: -100, // Make it larger than screen to prevent gaps
                 backgroundImage: `
-                    linear-gradient(to right, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 1px, transparent 1px)
+                    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
                 `,
                 backgroundSize: '50px 50px',
-                // This vignette makes the center bright and corners dark (Cinematic effect)
-                maskImage: 'radial-gradient(circle at 50% 50%, black 60%, transparent 100%)',
-                WebkitMaskImage: 'radial-gradient(circle at 50% 50%, black 60%, transparent 100%)'
             }} />
 
-            {/* OPTIONAL: Golden Glow in the center to highlight content */}
-            <div style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '60vw',
-                height: '60vh',
-                background: `radial-gradient(circle, ${COLORS.gold} 0%, transparent 70%)`,
-                opacity: 0.03, // Very subtle warm tint
-                filter: 'blur(100px)',
-            }} />
+            {/* --- LAYER 2: THE MOUSE GLOW (Intense Grid Reveal) --- */}
+            <motion.div
+                animate={{
+                    WebkitMaskPosition: `${mousePosition.x - 250}px ${mousePosition.y - 250}px`, // Centers the mask
+                }}
+                transition={{ type: 'tween', ease: 'linear', duration: 0.1 }}
+                style={{
+                    position: 'absolute', inset: -100,
+                    backgroundImage: `
+                        linear-gradient(to right, rgba(212, 175, 55, 0.3) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(212, 175, 55, 0.3) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '50px 50px',
+                    // The Mask: Only shows this bright gold grid in a circle around mouse
+                    maskImage: 'radial-gradient(circle at center, black 0%, transparent 70%)',
+                    WebkitMaskImage: 'radial-gradient(circle at center, black 0%, transparent 70%)',
+                    maskSize: '500px 500px', // Size of the torchlight
+                    maskRepeat: 'no-repeat',
+                }}
+                // Add the same moving class so the highlighted grid aligns with the faint grid
+                className="moving-grid"
+            />
+
+            {/* --- CSS FOR THE ANIMATION --- */}
+            <style jsx global>{`
+                @keyframes gridPan {
+                    0% { transform: translate(0, 0); }
+                    100% { transform: translate(-50px, -50px); }
+                }
+                .moving-grid {
+                    animation: gridPan 3s linear infinite;
+                }
+            `}</style>
         </div>
     );
 }
