@@ -9,8 +9,6 @@ export default function Background() {
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            // Updating state on every frame can be heavy, but for this effect it's necessary
-            // For extreme performance, we'd use useMotionValue, but this is React-safe and fast enough.
             setMousePosition({ x: e.clientX, y: e.clientY });
         };
 
@@ -26,7 +24,7 @@ export default function Background() {
 
             {/* --- LAYER 1: THE MOVING GRID (Always Visible but Faint) --- */}
             <div className="moving-grid" style={{
-                position: 'absolute', inset: -100, // Make it larger than screen to prevent gaps
+                position: 'absolute', inset: -100,
                 backgroundImage: `
                     linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
                     linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
@@ -36,9 +34,11 @@ export default function Background() {
 
             {/* --- LAYER 2: THE MOUSE GLOW (Intense Grid Reveal) --- */}
             <motion.div
+                // FIX: Used 'maskPosition' and added 'as any' to satisfy TypeScript
                 animate={{
-                    WebkitMaskPosition: `${mousePosition.x - 250}px ${mousePosition.y - 250}px`, // Centers the mask
-                }}
+                    maskPosition: `${mousePosition.x - 250}px ${mousePosition.y - 250}px`,
+                    WebkitMaskPosition: `${mousePosition.x - 250}px ${mousePosition.y - 250}px`,
+                } as any}
                 transition={{ type: 'tween', ease: 'linear', duration: 0.1 }}
                 style={{
                     position: 'absolute', inset: -100,
@@ -53,7 +53,6 @@ export default function Background() {
                     maskSize: '500px 500px', // Size of the torchlight
                     maskRepeat: 'no-repeat',
                 }}
-                // Add the same moving class so the highlighted grid aligns with the faint grid
                 className="moving-grid"
             />
 
