@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
+// FIX: Imported "Variants" to stop the type error
+import { motion, useMotionValue, useMotionTemplate, Variants } from 'framer-motion';
 import { FaRobot, FaInstagram, FaCameraRetro, FaBullhorn, FaCode, FaFingerprint, FaSkull, FaBolt, FaEye, FaFire, FaGem, FaGhost } from 'react-icons/fa';
 
 export default function Home() {
@@ -27,16 +28,18 @@ export default function Home() {
     };
 
     // --- ANIMATIONS ---
-    const paintReveal = {
+
+    // FIX: Explicitly typed as ": Variants" so TypeScript knows "easeInOut" is valid
+    const paintReveal: Variants = {
         hidden: { width: '120%' },
         visible: {
             width: '0%',
-            // FIX: Changed specific numbers to "easeInOut" to fix TypeScript error
             transition: { duration: 1.2, ease: "easeInOut", delay: 0.1 }
         }
     };
 
-    const fadeInUp = {
+    // FIX: Added type here too for safety
+    const fadeInUp: Variants = {
         hidden: { opacity: 0, y: 30 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut", delay: 1.4 } }
     };
