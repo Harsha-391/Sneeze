@@ -21,9 +21,10 @@ export default function Home() {
             <Marquee />
 
             {/* The "Hook" Section */}
-            <AiSpotlight />
+            
 
             <Services />
+            <AiSpotlight />
             <SocialManifesto />
             <EditorialSection />
 
