@@ -1,14 +1,15 @@
 'use client';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+// FIX: Imported "Variants" type
+import { motion, Variants } from 'framer-motion';
 import { COLORS } from '../constants';
 
 export default function Hero() {
     const router = useRouter();
 
-    // The Pen Stroke Animation
-    const strokeVariants = {
+    // FIX: Explicitly typed as ": Variants" so TypeScript accepts it
+    const strokeVariants: Variants = {
         hidden: { pathLength: 0, opacity: 0 },
         visible: {
             pathLength: 1,
@@ -17,8 +18,8 @@ export default function Hero() {
         }
     };
 
-    // The Fill Animation (Bleeds in like ink)
-    const fillVariants = {
+    // FIX: Explicitly typed as ": Variants"
+    const fillVariants: Variants = {
         hidden: { fillOpacity: 0 },
         visible: {
             fillOpacity: 1,
