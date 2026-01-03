@@ -1,112 +1,107 @@
 'use client';
-import React, { useEffect, useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { COLORS } from '../constants';
 
 export default function Background() {
-    const mouseRef = useRef({ x: 0, y: 0 });
-    const [maskPos, setMaskPos] = useState({ x: 0, y: 0 });
+    // 1. Motion values handle mouse position without triggering React re-renders
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    // 2. Spring physics for that "expensive" smooth follow-through
+    const springConfig = { stiffness: 100, damping: 25, mass: 0.5 };
+    const softX = useSpring(mouseX, springConfig);
+    const softY = useSpring(mouseY, springConfig);
+
+    // 3. Convert coordinates into a CSS mask position string for the GPU
+    const maskPos = useTransform(
+        [softX, softY],
+        ([x, y]) => `${(x as number) - 250}px ${(y as number) - 250}px`
+    );
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            mouseRef.current = { x: e.clientX, y: e.clientY };
-            updateMask();
+            mouseX.set(e.clientX);
+            mouseY.set(e.clientY);
         };
-
-        const handleScroll = () => {
-            updateMask();
-        };
-
-        const updateMask = () => {
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
-            setMaskPos({
-                x: mouseRef.current.x + scrollX,
-                y: mouseRef.current.y + scrollY
-            });
-        };
-
         window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, [mouseX, mouseY]);
 
     return (
         <div style={{
-            position: 'absolute',
+            position: 'fixed', // Keeps the background static during scroll
             top: 0,
             left: 0,
-            width: '100%',
-            height: '100%',
+            width: '100vw',
+            height: '100vh',
             zIndex: 0,
             pointerEvents: 'none',
             backgroundColor: COLORS.black,
             overflow: 'hidden'
         }}>
 
-            {/* --- LAYER 1: THE STATIC GRID --- */}
+            {/* --- LAYER 1: THE "HIDDEN" GRID (Blurred & Dim) --- */}
+            {/* This layer is always visible but stays out of focus */}
             <div style={{
-                position: 'absolute', inset: 0,
+                position: 'absolute',
+                inset: 0,
                 backgroundImage: `
-                    linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px)
+                    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
                 `,
                 backgroundSize: '50px 50px',
-                filter: 'blur(1.5px)',
+                filter: 'blur(2px)', // Adds the "not fully revealed" style
+                opacity: 0.5
             }} />
 
-            {/* --- LAYER 2: THE MOUSE GLOW --- */}
+            {/* --- LAYER 2: THE "EXPOSED" GLOW GRID --- */}
+            {/* This layer reveals the gold grid only where the mouse points */}
             <motion.div
-                animate={{
-                    maskPosition: `${maskPos.x - 250}px ${maskPos.y - 250}px`,
-                    WebkitMaskPosition: `${maskPos.x - 250}px ${maskPos.y - 250}px`,
-                } as any}
-                transition={{ type: 'tween', ease: 'linear', duration: 0 }}
                 style={{
-                    position: 'absolute', inset: 0,
+                    position: 'absolute',
+                    inset: 0,
                     backgroundImage: `
-                        linear-gradient(to right, rgba(212, 175, 55, 0.4) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(212, 175, 55, 0.4) 1px, transparent 1px)
+                        linear-gradient(to right, ${COLORS.gold}44 1px, transparent 1px),
+                        linear-gradient(to bottom, ${COLORS.gold}44 1px, transparent 1px)
                     `,
                     backgroundSize: '50px 50px',
-                    filter: 'blur(1px)',
+                    filter: 'blur(0.5px)', // Sharper than the base layer
 
-                    maskImage: 'radial-gradient(circle at center, black 0%, transparent 60%)',
-                    WebkitMaskImage: 'radial-gradient(circle at center, black 0%, transparent 60%)',
+                    // High-Performance Masking
+                    maskImage: 'radial-gradient(circle 250px at center, black 0%, transparent 80%)',
+                    WebkitMaskImage: 'radial-gradient(circle 250px at center, black 0%, transparent 80%)',
                     maskSize: '500px 500px',
                     maskRepeat: 'no-repeat',
+
+                    // Bind coordinates to the mask
+                    maskPosition: maskPos,
+                    WebkitMaskPosition: maskPos,
+
+                    willChange: 'mask-position, -webkit-mask-position'
                 }}
             />
 
-            {/* --- LAYER 3: FILM GRAIN (REDUCED NOISE) --- */}
+            {/* --- LAYER 3: GRAIN & NOISE OVERLAY --- */}
             <div className="film-grain" style={{
-                position: 'fixed',
+                position: 'absolute',
                 top: '-50%', left: '-50%', width: '200%', height: '200%',
-                pointerEvents: 'none',
                 zIndex: 2,
-                opacity: 0.03, // Reduced from 0.07 to 0.03 for a cleaner look
-                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+                opacity: 0.04, // Subtle but visible texture
+                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
             }} />
 
             <style jsx global>{`
                 @keyframes grain-move {
                     0%, 100% { transform: translate(0, 0); }
-                    10% { transform: translate(-5%, -10%); }
-                    20% { transform: translate(-15%, 5%); }
-                    30% { transform: translate(7%, -25%); }
-                    40% { transform: translate(-5%, 25%); }
-                    50% { transform: translate(-15%, 10%); }
-                    60% { transform: translate(15%, 0%); }
-                    70% { transform: translate(0%, 15%); }
-                    80% { transform: translate(3%, 35%); }
-                    90% { transform: translate(-10%, 10%); }
+                    10% { transform: translate(-1%, -1%); }
+                    30% { transform: translate(1%, 0.5%); }
+                    50% { transform: translate(-0.5%, 1%); }
+                    70% { transform: translate(0.5%, -1%); }
+                    90% { transform: translate(-1%, 0.5%); }
                 }
                 .film-grain {
-                    animation: grain-move 8s steps(10) infinite;
+                    animation: grain-move 0.4s steps(4) infinite;
                 }
             `}</style>
         </div>

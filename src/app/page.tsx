@@ -11,6 +11,8 @@ import SocialManifesto from '@/components/SocialManifesto';
 import EditorialSection from '@/components/EditorialSection';
 import Footer from '@/components/Footer';
 import PerformanceAds from '@/components/PerformanceAds';
+import UGCStrategySection from '@/components/UgcSection';
+import WebExperience from '@/components/WebExperience';
 
 export default function Home() {
     return (
@@ -29,6 +31,9 @@ export default function Home() {
             <SocialManifesto />
             <EditorialSection />
             <PerformanceAds />
+            <UGCStrategySection />
+            <WebExperience />
+            
 
             <Footer />
         </div>
