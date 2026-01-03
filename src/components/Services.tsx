@@ -5,7 +5,7 @@ import { COLORS, SERVICES_DATA } from '../constants';
 
 export default function Services() {
     return (
-        <section style={{ padding: '120px 20px', maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        <section style={{ padding: '60px 20px', maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
             <motion.h3
                 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
                 style={{ fontFamily: 'var(--font-oswald)', fontSize: '2rem', textAlign: 'center', marginBottom: '60px', color: '#444', letterSpacing: '6px', textTransform: 'uppercase' }}

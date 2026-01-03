@@ -10,6 +10,7 @@ import Services from '@/components/Services';
 import SocialManifesto from '@/components/SocialManifesto';
 import EditorialSection from '@/components/EditorialSection';
 import Footer from '@/components/Footer';
+import PerformanceAds from '@/components/PerformanceAds';
 
 export default function Home() {
     return (
@@ -27,6 +28,7 @@ export default function Home() {
             <AiSpotlight />
             <SocialManifesto />
             <EditorialSection />
+            <PerformanceAds />
 
             <Footer />
         </div>

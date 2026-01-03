@@ -5,8 +5,8 @@ import { COLORS } from '../constants';
 
 export default function AiSpotlight() {
     return (
-        <section style={{ padding: '160px 20px', maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '80px', alignItems: 'center' }}>
+        <section style={{ padding: '80px 20px', maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', alignItems: 'center' }}>
                 <motion.div
                     initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
                 >

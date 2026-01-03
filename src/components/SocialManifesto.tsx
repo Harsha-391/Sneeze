@@ -6,7 +6,7 @@ import { COLORS } from '../constants';
 export default function SocialManifesto() {
     return (
         <section style={{
-            padding: '140px 20px',
+            padding: '80px 20px',
             // FIX: Removed "background: COLORS.black" so the Global Grid/Spotlight shows through
             background: 'transparent',
             position: 'relative',
@@ -22,7 +22,7 @@ export default function SocialManifesto() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                style={{ textAlign: 'center', marginBottom: '100px' }}
+                style={{ textAlign: 'center', marginBottom: '50px' }}
             >
                 <h2 style={{
                     color: COLORS.text,

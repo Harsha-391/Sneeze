@@ -7,7 +7,8 @@ import { FaCamera } from 'react-icons/fa';
 export default function EditorialSection() {
     return (
         <section style={{
-            padding: '140px 20px',
+            padding: '80px 20px',
+            paddingBottom: '0px',
             background: 'transparent', // Lets the global grid show through
             position: 'relative',
             zIndex: 10,
@@ -47,7 +48,7 @@ export default function EditorialSection() {
             </motion.div>
 
             {/* THE FOCUS GRID */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '60px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
                 <FocusItem title="VINTAGE" desc="Timeless grain. Analog warmth. Nostalgia engineered." />
                 <FocusItem title="MODERN" desc="Clean lines. High-fidelity. Absolute clarity." />
                 <FocusItem title="MINIMAL" desc="Stripped back. Negative space. Pure impact." />
