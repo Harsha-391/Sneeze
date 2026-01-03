@@ -1,5 +1,5 @@
 'use client';
-import { ReactLenis } from 'lenis/react'; // Updated import for latest versions
+import { ReactLenis } from 'lenis/react';
 import { ReactNode } from 'react';
 
 interface SmoothScrollProps {
@@ -11,12 +11,12 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
         <ReactLenis
             root
             options={{
-                lerp: 0.05,        // Lowered for a high-end, slow-glide feel
-                duration: 1.5,     // Smooths out the transition over time
+                lerp: 0.05,        // "Buttery" slow-glide feel
+                duration: 1.5,     // Smooths out transitions
                 smoothWheel: true,
                 wheelMultiplier: 1,
                 touchMultiplier: 2,
-                normalizeWheel: true,
+                // normalizeWheel: true, // REMOVED: This was causing the Type Error
             }}
         >
             {children}
