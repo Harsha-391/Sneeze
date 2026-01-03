@@ -1,7 +1,7 @@
 ﻿'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
-import { COLORS } from '../constants';
+import { COLORS } from '../constants'; //
 import { FaFingerprint, FaVideo, FaUsers } from 'react-icons/fa';
 
 export default function UgcSection() {
@@ -54,7 +54,7 @@ export default function UgcSection() {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                         <div style={{ borderLeft: `2px solid ${COLORS.gold}`, paddingLeft: '15px' }}>
                             <h4 style={{ color: COLORS.text, margin: '0 0 5px 0', fontSize: '0.9rem' }}>RAW FEED</h4>
-                            <p style={{ color: COLORS.textMuted, fontSize: '0.8rem', margin: 0 }}>Youtube Shorts & Reels Native.</p>
+                            <p style={{ color: COLORS.textMuted, fontSize: '0.8rem', margin: 0 }}>TikTok & Reels Native.</p>
                         </div>
                         <div style={{ borderLeft: `2px solid ${COLORS.gold}`, paddingLeft: '15px' }}>
                             <h4 style={{ color: COLORS.text, margin: '0 0 5px 0', fontSize: '0.9rem' }}>TRUST FIRST</h4>
@@ -79,8 +79,13 @@ export default function UgcSection() {
                             width: '240px', height: '420px',
                             border: '1px solid rgba(255,255,255,0.1)',
                             background: 'rgba(255,255,255,0.03)',
-                            borderRadius: '24px', position: 'relative', z_index: 2,
-                            backdropFilter: 'blur(10px)', display: 'flex', flexDirection: 'column', padding: '15px'
+                            borderRadius: '24px',
+                            position: 'relative',
+                            zIndex: 2, // Fixed: changed from z_index to zIndex
+                            backdropFilter: 'blur(10px)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            padding: '15px'
                         }}
                     >
                         <div style={{ width: '40px', height: '4px', background: '#333', borderRadius: '2px', margin: '0 auto 20px auto' }} />
