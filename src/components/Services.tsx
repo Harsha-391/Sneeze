@@ -1,6 +1,7 @@
-'use client';
+﻿'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link'; // Import Link
 import { COLORS, SERVICES_DATA } from '../constants';
 
 export default function Services() {
@@ -12,9 +13,17 @@ export default function Services() {
             >
                 Capabilities
             </motion.h3>
+
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px', width: '100%' }}>
                 {SERVICES_DATA.map((service, index) => (
-                    <ServiceCard key={index} service={service} />
+                    // Wrap the card in a Link to make the whole area clickable
+                    <Link
+                        key={index}
+                        href={service.href || '#'} // Fallback to # if no link yet
+                        style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', height: '100%' }}
+                    >
+                        <ServiceCard service={service} />
+                    </Link>
                 ))}
             </div>
         </section>
@@ -32,27 +41,67 @@ function ServiceCard({ service }: { service: any }) {
             transition={{ duration: 0.3 }}
             style={{
                 padding: '40px', borderRadius: '0px', cursor: 'pointer', position: 'relative', overflow: 'hidden',
-                height: 'auto', minHeight: '320px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+                height: '100%', // Fill the Link wrapper
+                minHeight: '350px', // Slightly taller to accommodate the new button
+                display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
                 borderWidth: '1px', borderStyle: 'solid',
             }}
         >
+            {/* Glow Effect */}
             <motion.div
                 variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }} transition={{ duration: 0.4 }}
                 style={{ position: 'absolute', inset: 0, background: `radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 70%)`, pointerEvents: 'none' }}
             />
+
+            {/* --- TOP SECTION: ICON --- */}
             <div style={{ height: '50px', marginBottom: '25px', position: 'relative', zIndex: 1 }}>
                 <motion.div variants={{ rest: { opacity: 1, y: 0 }, hover: { opacity: 0, y: -10 } }} style={{ fontSize: '2.5rem', color: '#444', position: 'absolute' }}>{service.iconMain}</motion.div>
                 <motion.div variants={{ rest: { opacity: 0, y: 10 }, hover: { opacity: 1, y: 0 } }} style={{ fontSize: '2.5rem', color: COLORS.gold, position: 'absolute', filter: 'drop-shadow(0 0 8px rgba(212, 175, 55, 0.4))' }}>{service.iconHover}</motion.div>
             </div>
-            <div style={{ position: 'relative', zIndex: 1 }}>
+
+            {/* --- MIDDLE SECTION: TITLE & DESC --- */}
+            <div style={{ position: 'relative', zIndex: 1, flexGrow: 1 }}>
                 <h4 style={{ fontFamily: 'var(--font-oswald)', fontSize: '1.4rem', margin: '0 0 15px 0', textTransform: 'uppercase', color: 'white', letterSpacing: '1px' }}>{service.title}</h4>
                 <p style={{ color: '#888', lineHeight: 1.6, marginBottom: '25px', fontSize: '0.95rem', fontWeight: '300' }}>{service.desc}</p>
+
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '30px' }}>
+                    {service.tags.map((tag: string, i: number) => (
+                        <motion.span key={i} variants={{ rest: { color: '#555', borderColor: 'rgba(255,255,255,0.1)' }, hover: { color: COLORS.gold, borderColor: COLORS.gold } }} style={{ fontSize: '0.7rem', padding: '6px 12px', borderWidth: '1px', borderStyle: 'solid', letterSpacing: '1px', textTransform: 'uppercase' }}>{tag}</motion.span>
+                    ))}
+                </div>
             </div>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
-                {service.tags.map((tag: string, i: number) => (
-                    <motion.span key={i} variants={{ rest: { color: '#555', borderColor: 'rgba(255,255,255,0.1)' }, hover: { color: COLORS.gold, borderColor: COLORS.gold } }} style={{ fontSize: '0.7rem', padding: '6px 12px', borderWidth: '1px', borderStyle: 'solid', letterSpacing: '1px', textTransform: 'uppercase' }}>{tag}</motion.span>
-                ))}
+
+            {/* --- BOTTOM SECTION: THE NEW BUTTON / LINE --- */}
+            <div style={{
+                position: 'relative',
+                zIndex: 1,
+                borderTop: '1px solid rgba(255,255,255,0.1)',
+                paddingTop: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+            }}>
+                <motion.span
+                    variants={{ rest: { color: '#666' }, hover: { color: COLORS.gold } }}
+                    style={{
+                        fontFamily: 'var(--font-oswald)',
+                        textTransform: 'uppercase',
+                        fontSize: '0.85rem',
+                        letterSpacing: '2px',
+                        fontWeight: 'bold'
+                    }}
+                >
+                    Explore
+                </motion.span>
+
+                <motion.span
+                    variants={{ rest: { x: 0, opacity: 0.5 }, hover: { x: 5, opacity: 1, color: COLORS.gold } }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                >
+                    →
+                </motion.span>
             </div>
+
         </motion.div>
     );
 }
