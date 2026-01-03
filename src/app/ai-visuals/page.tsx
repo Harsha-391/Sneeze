@@ -1,17 +1,21 @@
 'use client';
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, Variants } from 'framer-motion';
 import { COLORS } from '../../constants';
 import Background from '../../components/Background';
 import { FaRobot, FaBolt, FaInfinity, FaTrashAlt, FaCameraRetro, FaLayerGroup, FaMagic, FaFilm, FaCube, FaPaintBrush } from 'react-icons/fa';
 
-// --- ANIMATION VARIANTS ---
-const fadeInUp = {
+// --- ANIMATION VARIANTS (Typed to fix build error) ---
+const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.8, ease: "easeOut" }
+    }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
@@ -25,7 +29,6 @@ export default function AiVisualsPage() {
 
     return (
         <main style={{
-            // REMOVED: background: COLORS.black (so we see the main Background component)
             minHeight: '100vh',
             overflowX: 'hidden',
             width: '100%',
@@ -95,7 +98,7 @@ export default function AiVisualsPage() {
             {/* ==================== DEPLOYMENT VECTORS ==================== */}
             <section style={{
                 padding: '80px 20px',
-                background: 'transparent', // REMOVED OPAQUE BG
+                background: 'transparent',
                 position: 'relative',
                 zIndex: 2
             }}>
@@ -145,7 +148,7 @@ export default function AiVisualsPage() {
                 padding: '100px 20px',
                 position: 'relative',
                 zIndex: 5,
-                background: 'transparent' // ENSURE TRANSPARENCY
+                background: 'transparent'
             }}>
                 <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '80px', alignItems: 'center' }}>
 
@@ -173,7 +176,7 @@ export default function AiVisualsPage() {
                                     border: typeof item === 'string' ? '1px solid #333' : 'none',
                                     padding: typeof item === 'string' ? '8px 12px' : '0',
                                     borderRadius: '4px',
-                                    background: 'rgba(0,0,0,0.8)', // Keep debris bg readable but distinct
+                                    background: 'rgba(0,0,0,0.8)',
                                     opacity: 0.7,
                                     whiteSpace: 'nowrap',
                                     zIndex: 2
@@ -236,7 +239,7 @@ export default function AiVisualsPage() {
             {/* ==================== THE PROTOCOL (Process) ==================== */}
             <section style={{
                 padding: '80px 20px',
-                background: 'transparent', // REMOVED OPAQUE BG
+                background: 'transparent',
                 position: 'relative',
                 zIndex: 2
             }}>
@@ -266,7 +269,7 @@ export default function AiVisualsPage() {
             {/* ==================== THE PROMISE (Prompt Bubbles) ==================== */}
             <section style={{
                 padding: '100px 20px',
-                background: 'transparent', // REMOVED GRADIENT
+                background: 'transparent',
                 position: 'relative',
                 zIndex: 2
             }}>
