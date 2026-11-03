@@ -1,4 +1,4 @@
-import ServicePage from '@/components/service/ServicePage';
+import WebExperiencePage from '@/components/service/pages/WebExperience';
 import JsonLd from '@/components/seo/JsonLd';
 import { serviceMetadata, serviceSchemas } from '@/content/seo';
 
@@ -8,7 +8,7 @@ export default function Page() {
     return (
         <>
             <JsonLd data={serviceSchemas('web-experience')} />
-            <ServicePage slug="web-experience" />
+            <WebExperiencePage />
         </>
     );
 }

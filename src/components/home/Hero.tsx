@@ -1,10 +1,9 @@
 'use client';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef } from 'react';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 import Button from '../ui/Button';
 import { HOME_SEO } from '@/content/site';
-import { useIntroDone, useIsVisible, usePageReady, usePauseOffscreen, useReveal } from '@/lib/motion';
+import { useIntroDone, useIsVisible, usePageReady, useReveal } from '@/lib/motion';
 import { useLenis } from 'lenis/react';
 
 const LINES: React.ReactNode[] = [
@@ -29,7 +28,6 @@ export default function Hero() {
     const pageReady = usePageReady();
     const topRef = useRef<HTMLDivElement>(null);
     const belowRef = useReveal<HTMLDivElement>();
-    const glowRef = usePauseOffscreen<HTMLDivElement>();
     const mediaRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const mediaVisible = useIsVisible(mediaRef, '200px');
@@ -61,17 +59,11 @@ export default function Hero() {
 
     return (
         <section className="hero" aria-labelledby="hero-title">
-            <div ref={glowRef} aria-hidden="true">
-                <div className="hero__glow loop" />
-            </div>
-
             <div ref={topRef} className="wrap">
                 <motion.div style={{ y: titleY, opacity: titleOpacity }}>
                     <h1 id="hero-title" className="hero__title serif h-hero">
                         {/* Keyword kicker inside the H1: tells Google what we are and where */}
-                        <span className="badge hero__kicker rv-fade">
-                            <FaMapMarkerAlt aria-hidden="true" /> {HOME_SEO.kicker}
-                        </span>
+                        <span className="kicker rv-fade">{HOME_SEO.kicker}</span>
                         <span className="sr-only">: </span>
                         {LINES.map((line, i) => (
                             <span key={i} className="rv-line" style={{ '--i': i } as React.CSSProperties}>
@@ -134,9 +126,6 @@ export default function Hero() {
                             <source src="/reel.mp4" type="video/mp4" />
                         </video>
                     </motion.div>
-                    <span className="hero__media-tag">
-                        <i className="loop" /> Showreel 2026
-                    </span>
                 </motion.div>
                 </div>
             </div>

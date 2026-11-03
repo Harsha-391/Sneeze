@@ -3,11 +3,22 @@ import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { useRef } from 'react';
 import { SERVICES_DATA, Service } from '@/constants';
-import { useMediaQuery, usePauseOffscreen, useReveal } from '@/lib/motion';
+import { useMediaQuery, useReveal } from '@/lib/motion';
+import { Arrow } from '../ui/Button';
+
+/** Typographic plate per service: a line of copy on a flat tone, no ornament. */
+const PLATES: Record<string, { line: [string, string]; tone: string; ink: string }> = {
+    '/ai-visuals': { line: ['Imagination,', 'generated.'], tone: '#efe8d8', ink: '#0b0a08' },
+    '/social-cults': { line: ['Followers into', 'fanatics.'], tone: '#2a1d14', ink: '#f4efe3' },
+    '/editorial': { line: ['Silence', 'the noise.'], tone: '#1c1913', ink: '#f4efe3' },
+    '/performance': { line: ['Creative that', 'converts.'], tone: '#d4af37', ink: '#0b0a08' },
+    '/ugc': { line: ['Real people.', 'Real trust.'], tone: '#e4d5b7', ink: '#0b0a08' },
+    '/web-experience': { line: ['Fast. Findable.', 'Yours.'], tone: '#141210', ink: '#f4efe3' },
+};
 
 function ServiceCard({ s, index }: { s: Service; index: number }) {
     const ref = useReveal<HTMLAnchorElement>();
-    const sceneRef = usePauseOffscreen<HTMLDivElement>();
+    const plate = PLATES[s.href];
     return (
         <Link
             ref={ref}
@@ -17,30 +28,25 @@ function ServiceCard({ s, index }: { s: Service; index: number }) {
             data-cursor-label="Explore"
             aria-label={`${s.title}: ${s.desc}`}
         >
-            <div className="card__media rv-scale" style={{ '--ar': s.ratio } as React.CSSProperties}>
-                <div ref={sceneRef} className="card__scene" aria-hidden="true">
-                    <div
-                        className="card__glow loop"
-                        style={{ '--c1': s.glow, '--gx': s.glowAt[0], '--gy': s.glowAt[1] } as React.CSSProperties}
-                    />
-                    <div className="card__gridlines" />
-                    <div className="card__ring loop" style={{ '--s': '78%', '--t': '40s' } as React.CSSProperties} />
-                    <div className="card__ring loop" style={{ '--s': '56%', '--t': '26s', animationDirection: 'reverse' } as React.CSSProperties} />
-                    <div className="card__icon">{s.iconMain}</div>
-                </div>
-                <span className="card__index">{String(index + 1).padStart(2, '0')}</span>
-                <span className="card__chip">{s.tags[0]}</span>
+            <div
+                className="card__plate rv-scale"
+                style={{ '--ar': s.ratio, '--tone': plate.tone, '--ink': plate.ink } as React.CSSProperties}
+                aria-hidden="true"
+            >
+                <span className="card__num">{String(index + 1).padStart(2, '0')}</span>
+                <span className="card__line serif">
+                    {plate.line[0]}
+                    <br />
+                    <em>{plate.line[1]}</em>
+                </span>
+                <span className="card__go">
+                    <Arrow />
+                </span>
             </div>
             <div className="card__meta rv-fade" style={{ '--d': '150ms' } as React.CSSProperties}>
-                <div>
-                    <h3 className="card__title serif">{s.title}</h3>
-                    <p className="card__desc">{s.desc}</p>
-                </div>
-                <div className="card__tags">
-                    {s.tags.map((t) => (
-                        <span key={t}>{t}</span>
-                    ))}
-                </div>
+                <h3 className="card__title serif">{s.title}</h3>
+                <p className="card__desc">{s.desc}</p>
+                <p className="card__tags">{s.tags.join(' · ')}</p>
             </div>
         </Link>
     );

@@ -1,16 +1,9 @@
 import React from 'react';
-import {
-    FaRobot, FaBolt, FaInfinity, FaCameraRetro, FaLayerGroup, FaMagic, FaFilm, FaCube, FaPaintBrush,
-    FaFire, FaGhost, FaLaughSquint, FaUsers, FaBullhorn, FaGlobe, FaBomb,
-    FaEye, FaFingerprint, FaImage, FaGem,
-    FaChartLine, FaBrain, FaHandPaper, FaFlask, FaMoneyBillWave, FaRocket, FaPercent,
-    FaUserFriends, FaClipboardList, FaCut, FaVideo, FaMobileAlt,
-    FaSearch, FaMousePointer, FaServer, FaCode, FaLaptopCode,
-} from 'react-icons/fa';
 
 /**
  * Copy for the six service pages. Everything renders through
- * <ServicePage />, so each page shares one design and you only edit words here.
+ * the six page components in src/components/service/pages (each has its own
+ * layout), so the words live here and the layouts live there.
  *
  * Heading conventions: `em` is the gold italic word, `strike` is crossed out,
  * `ember` is the warm "bad" word in the before/after section.
@@ -23,26 +16,22 @@ export type ServiceContent = {
     href: string;
     title: string;
     index: string;
-    icon: React.ReactNode;
     badge: string;
     hero: Line[];
     lede: string;
     cta: string;
     /** project form objective this service pre-selects */
     objective: string;
-    glow: string;
     ticker: string[];
-    features: { title: Line; sub: string; items: { icon: React.ReactNode; title: string; desc: string }[] };
+    features: { title: Line; sub: string; items: { title: string; desc: string }[] };
     shift: {
-        oldIcon: React.ReactNode;
         oldWays: string[];
-        stamp: [string, string];
         title: Line[];
         text: string;
-        values: { icon: React.ReactNode; title: string; text: string }[];
+        values: { title: string; text: string }[];
     };
     steps: { title: Line; items: { title: string; desc: string }[] };
-    promise: { icon: React.ReactNode; title: Line[]; text: React.ReactNode; chips: string[] };
+    promise: { title: Line[]; text: React.ReactNode; chips: string[] };
     /** Jaipur SEO: meta title (50-60 chars with the template), description (150-160), H1 kicker, FAQs */
     seo: { title: string; description: string; kicker: string; keywords: string[]; faq: { q: string; a: string }[] };
 };
@@ -53,33 +42,29 @@ export const SERVICE_PAGES: ServiceContent[] = [
         href: '/ai-visuals',
         title: 'AI-Gen Visuals',
         index: '01',
-        icon: <FaRobot />,
         badge: 'Neural Studio v1.0',
         hero: [{ text: 'The studio is ', strike: 'dead.' }, { text: 'Long live ', em: 'imagination.' }],
         lede: 'We bypass the physics of production to deliver studio-grade visuals at the speed of thought. No cameras. No limits. Just pure signal.',
         cta: 'Start Generating',
         objective: 'AI-Gen Visuals',
-        glow: 'rgba(212, 175, 55, 0.55)',
         ticker: ['Hyper-realistic fashion editorial on Mars', 'Cyberpunk street food vendor in neon rain', 'Luxury perfume bottle floating in liquid gold', 'Cinematic drone shot of a glass city'],
         features: {
             title: { text: 'Deployment ', em: 'vectors.' },
             sub: 'Where we apply synthetic intelligence to solve creative problems.',
             items: [
-                { icon: <FaCameraRetro />, title: 'Editorial Stills', desc: 'Hyper-realistic fashion, lifestyle, and portrait photography without a single shutter click. Perfect for campaigns that need impossible locations.' },
-                { icon: <FaCube />, title: 'Product Context', desc: 'Place your product anywhere. On the moon, deep underwater, or in a cyberpunk Tokyo apartment. No travel budget required.' },
-                { icon: <FaFilm />, title: 'Video Synthesis', desc: 'Text-to-video generation for social clips, background loops, and teaser content. The uncanny valley is finally behind us.' },
-                { icon: <FaPaintBrush />, title: 'Storyboarding', desc: 'Visualize 50 disparate concepts in the time it takes to sketch one. Rapid prototyping for directors and creative leads.' },
+                { title: 'Editorial Stills', desc: 'Hyper-realistic fashion, lifestyle, and portrait photography without a single shutter click. Perfect for campaigns that need impossible locations.' },
+                { title: 'Product Context', desc: 'Place your product anywhere. On the moon, deep underwater, or in a cyberpunk Tokyo apartment. No travel budget required.' },
+                { title: 'Video Synthesis', desc: 'Text-to-video generation for social clips, background loops, and teaser content. The uncanny valley is finally behind us.' },
+                { title: 'Storyboarding', desc: 'Visualize 50 disparate concepts in the time it takes to sketch one. Rapid prototyping for directors and creative leads.' },
             ],
         },
         shift: {
-            oldIcon: <FaCameraRetro />,
             oldWays: ['Studio Rent', 'Lighting Crew', 'Permits', 'Travel Costs'],
-            stamp: ['Eliminate', 'the grind'],
             title: [{ text: "We don't rent studios." }, { text: '', em: 'We generate them.' }],
             text: 'Forget the heavy lifting. No more full-day shoots, expensive equipment rentals, or logistical nightmares. We take the "production" out of production.',
             values: [
-                { icon: <FaBolt />, title: 'Speed of Light', text: 'From concept to final render in hours, not weeks.' },
-                { icon: <FaLayerGroup />, title: '40% Budget Recovery', text: 'Reallocate production bloat into media spend.' },
+                { title: 'Speed of Light', text: 'From concept to final render in hours, not weeks.' },
+                { title: '40% Budget Recovery', text: 'Reallocate production bloat into media spend.' },
             ],
         },
         steps: {
@@ -91,7 +76,6 @@ export const SERVICE_PAGES: ServiceContent[] = [
             ],
         },
         promise: {
-            icon: <FaInfinity />,
             title: [{ text: 'We will never bind' }, { text: '', em: 'your hands.' }],
             text: (
                 <>
@@ -118,33 +102,29 @@ export const SERVICE_PAGES: ServiceContent[] = [
         href: '/social-cults',
         title: 'Social Cults',
         index: '02',
-        icon: <FaFire />,
         badge: 'Viral Engineering',
         hero: [{ text: "We don't build followers." }, { text: 'We build ', em: 'cults.' }],
         lede: "Algorithms are the new battleground. We hack the feed to turn passive scrollers into obsessed evangelists. Your brand isn't a product. It's a movement.",
         cta: 'Join The Cult',
         objective: 'Social Media Dominance',
-        glow: 'rgba(255, 120, 60, 0.5)',
         ticker: ['Viral Reel Campaign', 'Discord Community Setup', 'Twitter/X Raids', 'Influencer Seeding', 'Meme Strategy'],
         features: {
             title: { text: 'Weapons of ', em: 'influence.' },
             sub: 'Tools designed to penetrate the noise and command attention.',
             items: [
-                { icon: <FaBolt />, title: 'Algorithmic Warfare', desc: 'Reverse-engineering the recommendation engine to guarantee reach. We feed the algorithm exactly what it craves.' },
-                { icon: <FaUsers />, title: 'Community Design', desc: 'From Discord to DMs, we build spaces where your brand is the religion. Fostering deep, unbreakable loyalty.' },
-                { icon: <FaGlobe />, title: 'Trend Jacking', desc: 'Identify and ride cultural waves before they crest. We insert your narrative into the global conversation instantly.' },
-                { icon: <FaLaughSquint />, title: 'Meme Engineering', desc: 'Weaponized humor that travels faster than ads. Content that people actually share, ensuring organic virality.' },
+                { title: 'Algorithmic Warfare', desc: 'Reverse-engineering the recommendation engine to guarantee reach. We feed the algorithm exactly what it craves.' },
+                { title: 'Community Design', desc: 'From Discord to DMs, we build spaces where your brand is the religion. Fostering deep, unbreakable loyalty.' },
+                { title: 'Trend Jacking', desc: 'Identify and ride cultural waves before they crest. We insert your narrative into the global conversation instantly.' },
+                { title: 'Meme Engineering', desc: 'Weaponized humor that travels faster than ads. Content that people actually share, ensuring organic virality.' },
             ],
         },
         shift: {
-            oldIcon: <FaBullhorn />,
             oldWays: ['Vanilla Posts', 'Generic Hashtags', 'Begging for Likes', 'Safe Branding'],
-            stamp: ['Burn the', 'boring'],
             title: [{ text: 'Safety is ', ember: 'suicide.' }, { text: '', em: 'Polarize to magnetize.' }],
             text: "In the attention economy, indifference is death. If they aren't talking about you, you don't exist. We create the spark that starts the wildfire.",
             values: [
-                { icon: <FaBomb />, title: 'Explosive Growth', text: 'Campaigns designed to break the internet, not just exist on it.' },
-                { icon: <FaGhost />, title: 'Shadow Influence', text: 'Subtle seeding in communities that feels organic, not corporate.' },
+                { title: 'Explosive Growth', text: 'Campaigns designed to break the internet, not just exist on it.' },
+                { title: 'Shadow Influence', text: 'Subtle seeding in communities that feels organic, not corporate.' },
             ],
         },
         steps: {
@@ -156,7 +136,6 @@ export const SERVICE_PAGES: ServiceContent[] = [
             ],
         },
         promise: {
-            icon: <FaFire />,
             title: [{ text: 'Attention is the' }, { text: 'only ', em: 'currency.' }],
             text: (
                 <>
@@ -182,33 +161,29 @@ export const SERVICE_PAGES: ServiceContent[] = [
         href: '/editorial',
         title: 'Editorial Stills',
         index: '03',
-        icon: <FaCameraRetro />,
         badge: 'Visual Alchemy',
         hero: [{ text: 'Silence the noise.' }, { text: 'Visuals that ', em: 'scream.' }],
         lede: 'We blend high fashion aesthetics with raw, gritty textures. Imagery that isn’t just seen, it’s felt.',
         cta: 'Book A Shoot',
         objective: 'Editorial / Product Shoots',
-        glow: 'rgba(244, 239, 227, 0.35)',
         ticker: ['Lookbook Shoot', 'Product Editorial', 'Brand Campaign', 'Social Media Assets', 'Billboards'],
         features: {
             title: { text: 'The ', em: 'aesthetic.' },
             sub: 'A curated approach to visual dominance.',
             items: [
-                { icon: <FaMagic />, title: 'Art Direction', desc: "Conceptualizing the impossible and making it real. We don't just shoot; we build worlds." },
-                { icon: <FaEye />, title: 'High Fidelity', desc: 'Every pixel perfected. From mobile screens to Times Square billboards, quality is non-negotiable.' },
-                { icon: <FaFingerprint />, title: 'Mood Engineering', desc: "Dialing in the exact emotional resonance of your brand through color, shadow, and composition." },
-                { icon: <FaPaintBrush />, title: 'Post-Production', desc: 'Where good becomes legendary. Our retouching and grading process is our secret sauce.' },
+                { title: 'Art Direction', desc: "Conceptualizing the impossible and making it real. We don't just shoot; we build worlds." },
+                { title: 'High Fidelity', desc: 'Every pixel perfected. From mobile screens to Times Square billboards, quality is non-negotiable.' },
+                { title: 'Mood Engineering', desc: "Dialing in the exact emotional resonance of your brand through color, shadow, and composition." },
+                { title: 'Post-Production', desc: 'Where good becomes legendary. Our retouching and grading process is our secret sauce.' },
             ],
         },
         shift: {
-            oldIcon: <FaImage />,
             oldWays: ['Stock Photos', 'Flat Lighting', 'Safe Angles', 'Boring Composition'],
-            stamp: ['No more', 'mediocre'],
             title: [{ text: 'Generic is ', ember: 'invisible.' }, { text: '', em: 'Own your aesthetic.' }],
             text: 'In a sea of sameness, only the bold survive. We create visuals that stop the scroll and imprint your brand into the retina of your audience.',
             values: [
-                { icon: <FaGem />, title: 'Premium Polish', text: 'Visuals that scream "luxury" and "authority" instantly.' },
-                { icon: <FaFilm />, title: 'Cinematic Storytelling', text: "Every image tells a story. We make sure it's an epic." },
+                { title: 'Premium Polish', text: 'Visuals that scream "luxury" and "authority" instantly.' },
+                { title: 'Cinematic Storytelling', text: "Every image tells a story. We make sure it's an epic." },
             ],
         },
         steps: {
@@ -220,7 +195,6 @@ export const SERVICE_PAGES: ServiceContent[] = [
             ],
         },
         promise: {
-            icon: <FaEye />,
             title: [{ text: 'Your brand, in' }, { text: '', em: 'high definition.' }],
             text: (
                 <>
@@ -246,33 +220,29 @@ export const SERVICE_PAGES: ServiceContent[] = [
         href: '/performance',
         title: 'Performance Ads',
         index: '04',
-        icon: <FaBullhorn />,
         badge: 'Revenue Engines',
         hero: [{ text: 'Creative that converts.' }, { text: '', em: 'Period.' }],
         lede: 'We don’t make “ads”. We make revenue engines. High-CTR creatives tested to destruction. If it doesn’t sell, it dies.',
         cta: 'Boost ROAS',
         objective: 'Performance Ads',
-        glow: 'rgba(242, 212, 126, 0.5)',
         ticker: ['Meta Ads', 'TikTok Ads', 'YouTube Shorts', 'Dynamic Creative', 'UGC Ads'],
         features: {
             title: { text: 'Growth ', em: 'levers.' },
             sub: 'Scientific methodology applied to creativity.',
             items: [
-                { icon: <FaFlask />, title: 'A/B Testing', desc: 'Darwinism for your ads. We test hundreds of variations to ensure only the strongest survive.' },
-                { icon: <FaChartLine />, title: 'Data-Driven', desc: 'Decisions made by spreadsheets, not hunches. We follow the ROAS wherever it leads.' },
-                { icon: <FaHandPaper />, title: 'Scroll Stoppers', desc: 'Visual hooks designed to arrest the thumb in 0.3 seconds. Attention is zero-sum, and we take it all.' },
-                { icon: <FaBrain />, title: 'Psychological Triggers', desc: 'Copy and visuals that speak directly to desire and pain points. We bypass logic and speak to the lizard brain.' },
+                { title: 'A/B Testing', desc: 'Darwinism for your ads. We test hundreds of variations to ensure only the strongest survive.' },
+                { title: 'Data-Driven', desc: 'Decisions made by spreadsheets, not hunches. We follow the ROAS wherever it leads.' },
+                { title: 'Scroll Stoppers', desc: 'Visual hooks designed to arrest the thumb in 0.3 seconds. Attention is zero-sum, and we take it all.' },
+                { title: 'Psychological Triggers', desc: 'Copy and visuals that speak directly to desire and pain points. We bypass logic and speak to the lizard brain.' },
             ],
         },
         shift: {
-            oldIcon: <FaMoneyBillWave />,
             oldWays: ['Brand Awareness', 'Vanity Metrics', 'Burning Cash', 'Hope Marketing'],
-            stamp: ['Stop', 'guessing'],
             title: [{ text: 'Art is ', ember: 'optional.' }, { text: '', em: 'Profit is mandatory.' }],
             text: 'We appreciate beauty, but we worship efficiency. Every pixel on the screen must justify its existence by contributing to the bottom line.',
             values: [
-                { icon: <FaRocket />, title: 'Scale Up', text: 'Once we find a winner, we pour fuel on the fire.' },
-                { icon: <FaPercent />, title: 'Predictable Growth', text: 'Turn your ad spend into a vending machine. $1 in, $5 out.' },
+                { title: 'Scale Up', text: 'Once we find a winner, we pour fuel on the fire.' },
+                { title: 'Predictable Growth', text: 'Turn your ad spend into a vending machine. $1 in, $5 out.' },
             ],
         },
         steps: {
@@ -284,7 +254,6 @@ export const SERVICE_PAGES: ServiceContent[] = [
             ],
         },
         promise: {
-            icon: <FaChartLine />,
             title: [{ text: 'Stop burning' }, { text: '', em: 'cash.' }],
             text: <strong>Start printing it.</strong>,
             chips: ['Meta Ads', 'TikTok Ads', 'YouTube Shorts', 'Dynamic Creative', 'UGC Ads'],
@@ -306,33 +275,29 @@ export const SERVICE_PAGES: ServiceContent[] = [
         href: '/ugc',
         title: 'UGC Factory',
         index: '05',
-        icon: <FaFingerprint />,
         badge: 'Human Scale',
         hero: [{ text: 'Scale authenticity.' }, { text: 'The anti-ad ', em: 'machine.' }],
         lede: "People trust people, not brands. We build armies of creators that look, sound, and feel like your customer's best friend.",
         cta: 'Start Seeding',
         objective: 'UGC Content',
-        glow: 'rgba(212, 120, 55, 0.5)',
         ticker: ['Unboxing Videos', 'Testimonials', 'How-To Guides', 'Reaction Videos', 'ASMR'],
         features: {
             title: { text: 'The ', em: 'factory.' },
             sub: 'Systems for mass-producing trust.',
             items: [
-                { icon: <FaUserFriends />, title: 'Creator Matching', desc: 'Finding faces that fit your demographic perfectly. Moms for moms, gamers for gamers, weirdos for weirdos.' },
-                { icon: <FaClipboardList />, title: 'Briefing Architecture', desc: 'Structured freedom. We give creators the sandbox and the guardrails, they build the castle.' },
-                { icon: <FaCut />, title: 'Native Editing', desc: 'Cuts that feel native to the feed. No polish, just pure retention edits. Jump cuts, subtitles, and chaos.' },
-                { icon: <FaLayerGroup />, title: 'Volume Production', desc: "Flooding the zone with hundreds of unique assets per month. You'll never run out of ads again." },
+                { title: 'Creator Matching', desc: 'Finding faces that fit your demographic perfectly. Moms for moms, gamers for gamers, weirdos for weirdos.' },
+                { title: 'Briefing Architecture', desc: 'Structured freedom. We give creators the sandbox and the guardrails, they build the castle.' },
+                { title: 'Native Editing', desc: 'Cuts that feel native to the feed. No polish, just pure retention edits. Jump cuts, subtitles, and chaos.' },
+                { title: 'Volume Production', desc: "Flooding the zone with hundreds of unique assets per month. You'll never run out of ads again." },
             ],
         },
         shift: {
-            oldIcon: <FaVideo />,
             oldWays: ['Over-produced', 'Scripted Lines', 'Fake Smiles', 'Actor Vibes'],
-            stamp: ['Kill the', 'script'],
             title: [{ text: 'Perfection is ', ember: 'suspicious.' }, { text: '', em: 'Flaws are trustworthy.' }],
             text: 'When everything looks like an ad, nothing works. We create content that looks like it belongs on the For You Page, because it does.',
             values: [
-                { icon: <FaMobileAlt />, title: 'Relatability', text: 'Content that feels like a recommendation from a friend.' },
-                { icon: <FaUserFriends />, title: 'Diverse Faces', text: 'Representing every corner of your potential market.' },
+                { title: 'Relatability', text: 'Content that feels like a recommendation from a friend.' },
+                { title: 'Diverse Faces', text: 'Representing every corner of your potential market.' },
             ],
         },
         steps: {
@@ -344,7 +309,6 @@ export const SERVICE_PAGES: ServiceContent[] = [
             ],
         },
         promise: {
-            icon: <FaFingerprint />,
             title: [{ text: 'Make content' }, { text: '', em: 'real again.' }],
             text: (
                 <>
@@ -370,33 +334,29 @@ export const SERVICE_PAGES: ServiceContent[] = [
         href: '/web-experience',
         title: 'Web Experiences',
         index: '06',
-        icon: <FaCode />,
         badge: 'Digital Dominion',
         hero: [{ text: 'Not just a website.' }, { text: 'Your digital ', em: 'empire.' }],
         lede: 'Fast, SEO-optimized, and animated digital headquarters, designed and built in Jaipur. We build sites that feel like apps and rank like encyclopedias.',
         cta: 'Launch Project',
         objective: 'Web Development',
-        glow: 'rgba(212, 175, 55, 0.45)',
         ticker: ['SaaS Landing Page', 'Portfolio Site', 'E-commerce Store', 'WebGL Experience', 'Corporate Site'],
         features: {
             title: { text: 'Technical ', em: 'superiority.' },
             sub: 'Under the hood, we are ferocious.',
             items: [
-                { icon: <FaCube />, title: 'WebGL / 3D', desc: 'Immersive experiences that keep users glued to the screen. Not just scrolling, but exploring.' },
-                { icon: <FaSearch />, title: 'SEO Mechanics', desc: 'Built on Next.js for perfect Lighthouse scores. We structure your data so Google falls in love.' },
-                { icon: <FaMousePointer />, title: 'Motion Design', desc: 'Micro-interactions that make every click feel expensive. Smooth transitions, hover states, and animations.' },
-                { icon: <FaServer />, title: 'Headless CMS', desc: 'You control the content, we control the code. Infinite scalability without the WordPress bloat.' },
+                { title: 'WebGL / 3D', desc: 'Immersive experiences that keep users glued to the screen. Not just scrolling, but exploring.' },
+                { title: 'SEO Mechanics', desc: 'Built on Next.js for perfect Lighthouse scores. We structure your data so Google falls in love.' },
+                { title: 'Motion Design', desc: 'Micro-interactions that make every click feel expensive. Smooth transitions, hover states, and animations.' },
+                { title: 'Headless CMS', desc: 'You control the content, we control the code. Infinite scalability without the WordPress bloat.' },
             ],
         },
         shift: {
-            oldIcon: <FaLaptopCode />,
             oldWays: ['WordPress Agency', 'Slow Loading', 'Template Hell', 'Bloated Plugins'],
-            stamp: ['Delete the', 'template'],
             title: [{ text: 'Templates are for ', ember: 'amateurs.' }, { text: '', em: 'You need bespoke.' }],
             text: "Your website is your 24/7 salesman. If it's slow, ugly, or generic, you are losing money while you sleep. We fix that permanently.",
             values: [
-                { icon: <FaRocket />, title: 'Blazing Fast', text: 'Sub-second load times that keep visitors engaged.' },
-                { icon: <FaCode />, title: 'Clean Code', text: 'Maintainable, scalable, and built for the future.' },
+                { title: 'Blazing Fast', text: 'Sub-second load times that keep visitors engaged.' },
+                { title: 'Clean Code', text: 'Maintainable, scalable, and built for the future.' },
             ],
         },
         steps: {
@@ -408,7 +368,6 @@ export const SERVICE_PAGES: ServiceContent[] = [
             ],
         },
         promise: {
-            icon: <FaGlobe />,
             title: [{ text: 'Build your' }, { text: '', em: 'cathedral.' }],
             text: (
                 <>

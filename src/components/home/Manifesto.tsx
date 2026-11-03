@@ -3,37 +3,10 @@ import { motion, MotionValue, useScroll, useTransform } from 'framer-motion';
 import { useLenis } from 'lenis/react';
 import { useRef } from 'react';
 import Button from '../ui/Button';
-import { usePauseOffscreen, useReveal } from '@/lib/motion';
+import { useReveal } from '@/lib/motion';
 
 const TEXT =
     'We are a Jaipur creative agency for brands that have something worth saying and refuse to blend in. From scrappy startups to names entering a new chapter, we turn ideas into AI visuals, scroll-stopping social, performance ads and websites people actually remember.';
-
-/** Sneeze "burst": spinning ring of rays around a pulsing gold core. */
-function Burst() {
-    const rays = Array.from({ length: 16 });
-    return (
-        <svg viewBox="0 0 120 120" aria-hidden="true">
-            <g className="spin loop">
-                {rays.map((_, i) => (
-                    <line
-                        key={i}
-                        x1="60"
-                        y1={i % 2 ? 14 : 6}
-                        x2="60"
-                        y2="30"
-                        stroke="currentColor"
-                        strokeWidth={i % 2 ? 2 : 3}
-                        strokeLinecap="round"
-                        transform={`rotate(${(360 / rays.length) * i} 60 60)`}
-                        opacity={i % 2 ? 0.55 : 1}
-                    />
-                ))}
-            </g>
-            <circle className="pulse loop" cx="60" cy="60" r="17" fill="currentColor" />
-            <circle cx="60" cy="60" r="27" fill="none" stroke="currentColor" strokeOpacity=".35" strokeDasharray="2 5" />
-        </svg>
-    );
-}
 
 function Word({ word, progress, range }: { word: string; progress: MotionValue<number>; range: [number, number] }) {
     const opacity = useTransform(progress, range, [0.14, 1]);
@@ -46,7 +19,6 @@ function Word({ word, progress, range }: { word: string; progress: MotionValue<n
 
 export default function Manifesto() {
     const headRef = useReveal<HTMLDivElement>();
-    const badgeRef = usePauseOffscreen<HTMLDivElement>();
     const textRef = useRef<HTMLParagraphElement>(null);
     const actionsRef = useReveal<HTMLDivElement>();
     const lenis = useLenis();
@@ -59,9 +31,6 @@ export default function Manifesto() {
         <section className="manifesto" aria-labelledby="manifesto-title">
             <div className="wrap">
                 <div ref={headRef}>
-                    <div ref={badgeRef} className="manifesto__badge rv-scale">
-                        <Burst />
-                    </div>
                     <h2 id="manifesto-title" className="manifesto__title serif h-xl">
                         <span className="rv-line">
                             <span>Content that{' '}</span>

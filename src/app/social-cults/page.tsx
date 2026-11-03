@@ -1,4 +1,4 @@
-import ServicePage from '@/components/service/ServicePage';
+import SocialCultsPage from '@/components/service/pages/SocialCults';
 import JsonLd from '@/components/seo/JsonLd';
 import { serviceMetadata, serviceSchemas } from '@/content/seo';
 
@@ -8,7 +8,7 @@ export default function Page() {
     return (
         <>
             <JsonLd data={serviceSchemas('social-cults')} />
-            <ServicePage slug="social-cults" />
+            <SocialCultsPage />
         </>
     );
 }

@@ -63,7 +63,6 @@ export default function StatsStrip() {
                         {items.map((s, i) => (
                             <article key={i} className="stat" aria-hidden={i >= STATS.length ? true : undefined}>
                                 <div className="stat__head">
-                                    {s.icon}
                                     <span>{s.label}</span>
                                 </div>
                                 <div className="stat__body">

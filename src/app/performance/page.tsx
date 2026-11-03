@@ -1,4 +1,4 @@
-import ServicePage from '@/components/service/ServicePage';
+import PerformancePage from '@/components/service/pages/Performance';
 import JsonLd from '@/components/seo/JsonLd';
 import { serviceMetadata, serviceSchemas } from '@/content/seo';
 
@@ -8,7 +8,7 @@ export default function Page() {
     return (
         <>
             <JsonLd data={serviceSchemas('performance')} />
-            <ServicePage slug="performance" />
+            <PerformancePage />
         </>
     );
 }

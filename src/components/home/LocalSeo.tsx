@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import { FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
 import { Arrow } from '../ui/Button';
 import { addressLine, BUSINESS, HOME_SEO } from '@/content/site';
 import { useReveal } from '@/lib/motion';
@@ -50,11 +49,11 @@ export default function LocalSeo() {
 
                 <address className="local__nap rv-fade" style={{ '--i': 8 } as React.CSSProperties}>
                     <span>
-                        <FaMapMarkerAlt aria-hidden="true" /> {BUSINESS.name}, {addressLine()}
+                        {BUSINESS.name}, {addressLine()}
                     </span>
                     {BUSINESS.phones.map((p) => (
                         <a key={p} className="uline" href={`tel:+${p.replace(/\D/g, '')}`}>
-                            <FaPhone aria-hidden="true" /> {p}
+                            {p}
                         </a>
                     ))}
                 </address>

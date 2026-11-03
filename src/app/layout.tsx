@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Instrument_Serif, Oswald } from 'next/font/google';
 import './globals.css';
+import './service-pages.css';
 import SmoothScroll from '../components/SmoothScroll';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
