@@ -1,7 +1,7 @@
 'use client';
 import { useLenis } from 'lenis/react';
 import { useEffect, useRef, useState } from 'react';
-import { intro } from '@/lib/motion';
+import { intro, pageTransition } from '@/lib/motion';
 
 // Plays once per tab session, and only on a real page load (not on client nav).
 // The flag is set when the intro finishes (not when it starts) so React
@@ -25,7 +25,7 @@ export default function Preloader() {
         }
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        if (playedThisLoad || seen || reduced) {
+        if (playedThisLoad || seen || reduced || pageTransition.hasNavigated()) {
             playedThisLoad = true;
             intro.finish();
             // eslint-disable-next-line react-hooks/set-state-in-effect -- hide overlay immediately for returning visitors

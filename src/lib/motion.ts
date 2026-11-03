@@ -149,3 +149,39 @@ export function useMediaQuery(query: string) {
         () => false
     );
 }
+
+/* ------------------------------------------------------------------ */
+/* Page-transition state: pages wait for the curtain before revealing. */
+/* ------------------------------------------------------------------ */
+
+let pageReady = true;
+let navigated = false;
+const pageListeners = new Set<() => void>();
+const emitPage = () => pageListeners.forEach((l) => l());
+
+export const pageTransition = {
+    /** Curtain is covering the screen: new pages should hold their reveal. */
+    start() {
+        navigated = true;
+        pageReady = false;
+        emitPage();
+    },
+    /** Curtain is lifting: reveal. */
+    ready() {
+        pageReady = true;
+        emitPage();
+    },
+    isReady: () => pageReady,
+    /** True after the first client-side navigation (used to skip the preloader). */
+    hasNavigated: () => navigated,
+    subscribe(listener: () => void) {
+        pageListeners.add(listener);
+        return () => {
+            pageListeners.delete(listener);
+        };
+    },
+};
+
+export function usePageReady() {
+    return useSyncExternalStore(pageTransition.subscribe, pageTransition.isReady, () => false);
+}

@@ -5,6 +5,7 @@ import SmoothScroll from '../components/SmoothScroll';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Cursor from '../components/Cursor';
+import PageTransition from '../components/PageTransition';
 
 const oswald = Oswald({ subsets: ['latin'], weight: ['400', '500', '700'], variable: '--font-oswald', display: 'swap' });
 const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], variable: '--font-inter', display: 'swap' });
@@ -17,7 +18,7 @@ const serif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-    title: 'Sneeze Media | Full-Stack Digital Agency',
+    title: { default: 'Sneeze Media | Full-Stack Digital Agency', template: '%s | Sneeze Media' },
     description:
         'Sneeze Media is an AI-first creative studio: AI-generated visuals, social, editorial photography, performance ads, UGC and high-performance websites.',
     openGraph: {
@@ -39,8 +40,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <body>
                 <SmoothScroll>
                     <Header />
-                    {children}
-                    <Footer />
+                    {/* .page-root is what drifts during page transitions */}
+                    <div className="page-root">
+                        {children}
+                        <Footer />
+                    </div>
+                    <PageTransition />
                 </SmoothScroll>
                 <Cursor />
                 <div className="grain" aria-hidden="true" />

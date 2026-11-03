@@ -10,6 +10,7 @@ type Props = {
     className?: string;
     external?: boolean;
     type?: 'button' | 'submit';
+    disabled?: boolean;
 };
 
 export function Arrow() {
@@ -24,7 +25,7 @@ export function Arrow() {
  * Pill button: a gold fill wipes up from below on hover and the label rolls
  * to a second copy. Every transition here is transform-only.
  */
-export default function Button({ href, onClick, children, variant = 'outline', className = '', external, type = 'button' }: Props) {
+export default function Button({ href, onClick, children, variant = 'outline', className = '', external, type = 'button', disabled }: Props) {
     const cls = `btn ${variant === 'solid' ? 'btn--solid' : ''} ${variant === 'ghost' ? 'btn--ghost' : ''} ${className}`;
     const inner = (
         <>
@@ -57,7 +58,7 @@ export default function Button({ href, onClick, children, variant = 'outline', c
     }
 
     return (
-        <button type={type} className={cls} onClick={onClick}>
+        <button type={type} className={cls} onClick={onClick} disabled={disabled} aria-busy={disabled || undefined}>
             {inner}
         </button>
     );

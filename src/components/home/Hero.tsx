@@ -2,7 +2,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import Button from '../ui/Button';
-import { useIntroDone, useIsVisible, usePauseOffscreen, useReveal } from '@/lib/motion';
+import { useIntroDone, useIsVisible, usePageReady, usePauseOffscreen, useReveal } from '@/lib/motion';
 import { useLenis } from 'lenis/react';
 
 const LINES: React.ReactNode[] = [
@@ -24,6 +24,7 @@ export function Swoosh({ flip = false }: { flip?: boolean }) {
 
 export default function Hero() {
     const introDone = useIntroDone();
+    const pageReady = usePageReady();
     const topRef = useRef<HTMLDivElement>(null);
     const belowRef = useReveal<HTMLDivElement>();
     const glowRef = usePauseOffscreen<HTMLDivElement>();
@@ -51,9 +52,10 @@ export default function Hero() {
         else v.pause();
     }, [mediaVisible]);
 
+    // Reveal once the preloader (first visit) or the page curtain (navigation) is out of the way.
     useEffect(() => {
-        if (introDone) topRef.current?.classList.add('is-in');
-    }, [introDone]);
+        if (introDone && pageReady) topRef.current?.classList.add('is-in');
+    }, [introDone, pageReady]);
 
     return (
         <section className="hero" aria-labelledby="hero-title">
