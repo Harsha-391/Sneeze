@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { COLORS } from '@/constants';
 import Background from '@/components/Background';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 export default function ProjectPage() {
     // PASTE YOUR ACCESS KEY HERE
@@ -60,7 +58,6 @@ export default function ProjectPage() {
     return (
         <div style={{ backgroundColor: COLORS.black, minHeight: '100vh', color: COLORS.text, fontFamily: 'var(--font-inter)' }}>
             <Background />
-            <Header />
 
             <div style={{
                 maxWidth: '800px',
@@ -161,7 +158,6 @@ export default function ProjectPage() {
 
             </div>
 
-            <Footer />
         </div>
     );
 }

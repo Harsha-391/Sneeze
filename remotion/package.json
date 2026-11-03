@@ -1,0 +1,22 @@
+{
+  "name": "sneeze-reel",
+  "private": true,
+  "description": "Remotion project that renders the Sneeze homepage showreel (public/reel.webm).",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts SneezeReel ../public/reel.webm --codec=vp9 --crf=40 --scale=0.8 --muted",
+    "render:mp4": "remotion render src/index.ts SneezeReel ../public/reel.mp4 --codec=h264 --crf=27 --scale=0.8 --muted",
+    "poster": "remotion still src/index.ts SneezeReel ../public/reel-poster.jpg --frame=48 --scale=0.8 --image-format=jpeg --jpeg-quality=82",
+    "build": "npm run render && npm run render:mp4 && npm run poster"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.535",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.535"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "typescript": "^5"
+  }
+}

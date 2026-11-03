@@ -61,7 +61,7 @@ export default function PerformancePage() {
                             padding: '8px 24px', borderRadius: '50px',
                             fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '2px',
                             display: 'flex', alignItems: 'center', gap: '10px',
-                            background: 'rgba(0,0,0,0.3)', backdropFilter: 'blur(5px)'
+                            background: 'rgba(11,10,8,0.85)'
                         }}>
                             <FaBullhorn /> Revenue Engines
                         </span>
@@ -316,7 +316,6 @@ export default function PerformancePage() {
                                     color: '#888',
                                     fontSize: '0.85rem',
                                     background: 'rgba(0,0,0,0.5)',
-                                    backdropFilter: 'blur(5px)',
                                     cursor: 'default',
                                     boxShadow: '0 4px 6px rgba(0,0,0,0.2)',
                                     maxWidth: '90vw',
