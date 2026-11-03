@@ -6,6 +6,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Cursor from '../components/Cursor';
 import PageTransition from '../components/PageTransition';
+import JsonLd from '../components/seo/JsonLd';
+import { BUSINESS, HOME_SEO, SITE_URL } from '../content/site';
+import { organizationSchema } from '../content/seo';
 
 const oswald = Oswald({ subsets: ['latin'], weight: ['400', '500', '700'], variable: '--font-oswald', display: 'swap' });
 const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], variable: '--font-inter', display: 'swap' });
@@ -18,13 +21,36 @@ const serif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-    title: { default: 'Sneeze Media | Full-Stack Digital Agency', template: '%s | Sneeze Media' },
-    description:
-        'Sneeze Media is an AI-first creative studio: AI-generated visuals, social, editorial photography, performance ads, UGC and high-performance websites.',
+    metadataBase: new URL(SITE_URL),
+    title: { default: HOME_SEO.title, template: '%s | Sneeze Media' },
+    description: HOME_SEO.description,
+    applicationName: BUSINESS.name,
+    keywords: HOME_SEO.keywords,
+    category: 'Marketing agency',
+    alternates: { canonical: '/' },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
+    },
     openGraph: {
-        title: 'Sneeze Media | Full-Stack Digital Agency',
-        description: 'We make brands impossible to scroll past.',
         type: 'website',
+        url: '/',
+        siteName: BUSINESS.name,
+        locale: 'en_IN',
+        title: HOME_SEO.title,
+        description: HOME_SEO.description,
+        images: [{ url: '/og.png', width: 1200, height: 630, alt: `${BUSINESS.name}: ${BUSINESS.tagline}` }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: HOME_SEO.title,
+        description: HOME_SEO.description,
+        images: ['/og.png'],
+    },
+    other: {
+        'geo.region': 'IN-RJ',
+        'geo.placename': 'Jaipur',
     },
 };
 
@@ -36,8 +62,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="en" className={`${oswald.variable} ${inter.variable} ${serif.variable}`}>
+        <html lang="en-IN" className={`${oswald.variable} ${inter.variable} ${serif.variable}`}>
             <body>
+                <JsonLd data={organizationSchema()} />
                 <SmoothScroll>
                     <Header />
                     {/* .page-root is what drifts during page transitions */}

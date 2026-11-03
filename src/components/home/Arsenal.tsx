@@ -12,7 +12,7 @@ export default function Arsenal() {
                         <p className="eyebrow rv-fade">Tools &amp; platforms</p>
                         <h2 id="arsenal-title" className="serif h-l" style={{ marginTop: 18 }}>
                             <span className="rv-line">
-                                <span>The</span>
+                                <span>The{' '}</span>
                             </span>
                             <span className="rv-line" style={{ '--i': 1 } as React.CSSProperties}>
                                 <span>

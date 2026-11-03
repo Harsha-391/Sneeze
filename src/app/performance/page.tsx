@@ -1,11 +1,14 @@
-import type { Metadata } from 'next';
 import ServicePage from '@/components/service/ServicePage';
+import JsonLd from '@/components/seo/JsonLd';
+import { serviceMetadata, serviceSchemas } from '@/content/seo';
 
-export const metadata: Metadata = {
-    title: 'Performance Ads',
-    description: 'High-CTR ad creatives for Meta, TikTok and YouTube, tested to destruction and scaled on ROAS.',
-};
+export const metadata = serviceMetadata('performance');
 
 export default function Page() {
-    return <ServicePage slug="performance" />;
+    return (
+        <>
+            <JsonLd data={serviceSchemas('performance')} />
+            <ServicePage slug="performance" />
+        </>
+    );
 }

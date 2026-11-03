@@ -6,7 +6,7 @@ import Button from '../ui/Button';
 import { usePauseOffscreen, useReveal } from '@/lib/motion';
 
 const TEXT =
-    'We partner with brands that have something worth saying and refuse to blend in. From scrappy startups to names entering a new chapter, we turn ideas into AI visuals, scroll-stopping social, performance ads and websites people actually remember.';
+    'We are a Jaipur creative agency for brands that have something worth saying and refuse to blend in. From scrappy startups to names entering a new chapter, we turn ideas into AI visuals, scroll-stopping social, performance ads and websites people actually remember.';
 
 /** Sneeze "burst": spinning ring of rays around a pulsing gold core. */
 function Burst() {
@@ -64,7 +64,7 @@ export default function Manifesto() {
                     </div>
                     <h2 id="manifesto-title" className="manifesto__title serif h-xl">
                         <span className="rv-line">
-                            <span>Content that</span>
+                            <span>Content that{' '}</span>
                         </span>
                         <span className="rv-line" style={{ '--i': 1 } as React.CSSProperties}>
                             <span>

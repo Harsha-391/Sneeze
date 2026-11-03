@@ -1,11 +1,14 @@
-import type { Metadata } from 'next';
 import ServicePage from '@/components/service/ServicePage';
+import JsonLd from '@/components/seo/JsonLd';
+import { serviceMetadata, serviceSchemas } from '@/content/seo';
 
-export const metadata: Metadata = {
-    title: 'Editorial Stills',
-    description: 'Editorial-grade photography and art direction: texture, grain and visuals that stop the scroll.',
-};
+export const metadata = serviceMetadata('editorial');
 
 export default function Page() {
-    return <ServicePage slug="editorial" />;
+    return (
+        <>
+            <JsonLd data={serviceSchemas('editorial')} />
+            <ServicePage slug="editorial" />
+        </>
+    );
 }

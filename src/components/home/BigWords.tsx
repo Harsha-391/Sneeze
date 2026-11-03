@@ -50,7 +50,7 @@ export default function BigWords() {
             <div className="wrap">
                 <h2 id="bigwords-title" className="bigwords__title serif h-l">
                     <span className="rv-line">
-                        <span>We know what</span>
+                        <span>We know what{' '}</span>
                     </span>
                     <span className="rv-line" style={{ '--i': 1 } as React.CSSProperties}>
                         <span>

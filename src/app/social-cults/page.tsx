@@ -1,11 +1,14 @@
-import type { Metadata } from 'next';
 import ServicePage from '@/components/service/ServicePage';
+import JsonLd from '@/components/seo/JsonLd';
+import { serviceMetadata, serviceSchemas } from '@/content/seo';
 
-export const metadata: Metadata = {
-    title: 'Social Cults',
-    description: 'Algorithm-hacking reels, trend jacking and community building that turns scrollers into evangelists.',
-};
+export const metadata = serviceMetadata('social-cults');
 
 export default function Page() {
-    return <ServicePage slug="social-cults" />;
+    return (
+        <>
+            <JsonLd data={serviceSchemas('social-cults')} />
+            <ServicePage slug="social-cults" />
+        </>
+    );
 }

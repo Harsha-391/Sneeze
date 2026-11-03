@@ -1,7 +1,9 @@
 'use client';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 import Button from '../ui/Button';
+import { HOME_SEO } from '@/content/site';
 import { useIntroDone, useIsVisible, usePageReady, usePauseOffscreen, useReveal } from '@/lib/motion';
 import { useLenis } from 'lenis/react';
 
@@ -66,16 +68,21 @@ export default function Hero() {
             <div ref={topRef} className="wrap">
                 <motion.div style={{ y: titleY, opacity: titleOpacity }}>
                     <h1 id="hero-title" className="hero__title serif h-hero">
+                        {/* Keyword kicker inside the H1: tells Google what we are and where */}
+                        <span className="badge hero__kicker rv-fade">
+                            <FaMapMarkerAlt aria-hidden="true" /> {HOME_SEO.kicker}
+                        </span>
+                        <span className="sr-only">: </span>
                         {LINES.map((line, i) => (
                             <span key={i} className="rv-line" style={{ '--i': i } as React.CSSProperties}>
-                                <span>{line}</span>
+                                <span>{line}{' '}</span>
                             </span>
                         ))}
                     </h1>
 
                     <p className="hero__sub rv-fade" style={{ '--d': '450ms' } as React.CSSProperties}>
                         <Swoosh />
-                        <span>For ambitious brands ready to go viral &amp; scale</span>
+                        <span>For ambitious brands in Jaipur &amp; beyond, ready to go viral</span>
                         <Swoosh flip />
                     </p>
 

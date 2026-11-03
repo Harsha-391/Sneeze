@@ -4,6 +4,7 @@ import { useLenis } from 'lenis/react';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import Button, { Arrow } from '../ui/Button';
+import Faq from '../Faq';
 import { getService, Line, ServiceContent } from '@/content/services';
 import { usePageReady, usePauseOffscreen, useReveal } from '@/lib/motion';
 
@@ -160,15 +161,16 @@ function Hero({ s }: { s: ServiceContent }) {
                         <span aria-current="page">{s.title}</span>
                     </nav>
 
-                    <span className="badge rv-fade" style={{ '--d': '80ms' } as React.CSSProperties}>
-                        {s.icon} {s.badge}
-                    </span>
-
                     <h1 id="svc-title" className="svc-hero__title serif">
+                        {/* Keyword kicker inside the H1 (primary Jaipur search term for this page) */}
+                        <span className="badge rv-fade" style={{ '--d': '80ms' } as React.CSSProperties}>
+                            {s.icon} {s.seo.kicker}
+                        </span>
+                        <span className="sr-only">: </span>
                         {s.hero.map((l, i) => (
                             <span key={i} className="rv-line" style={{ '--i': i, '--d': '120ms' } as React.CSSProperties}>
                                 <span>
-                                    <LineText line={l} />
+                                    <LineText line={l} />{' '}
                                 </span>
                             </span>
                         ))}
@@ -324,7 +326,7 @@ function Shift({ s }: { s: ServiceContent }) {
                     ))}
                     <div ref={stampRef} className="shift__stamp display">
                         <span className="rv-line">
-                            <span>{s.shift.stamp[0]}</span>
+                            <span>{s.shift.stamp[0]}{' '}</span>
                         </span>
                         <span className="rv-line" style={{ '--i': 1 } as React.CSSProperties}>
                             <span className="ember">{s.shift.stamp[1]}</span>
@@ -338,7 +340,7 @@ function Shift({ s }: { s: ServiceContent }) {
                         {s.shift.title.map((l, i) => (
                             <span key={i} className="rv-line" style={{ '--i': i } as React.CSSProperties}>
                                 <span>
-                                    <LineText line={l} />
+                                    <LineText line={l} />{' '}
                                 </span>
                             </span>
                         ))}
@@ -439,7 +441,7 @@ function PromiseCta({ s }: { s: ServiceContent }) {
                     {s.promise.title.map((l, i) => (
                         <span key={i} className="rv-line" style={{ '--i': i } as React.CSSProperties}>
                             <span>
-                                <LineText line={l} />
+                                <LineText line={l} />{' '}
                             </span>
                         </span>
                     ))}
@@ -498,6 +500,16 @@ export default function ServicePage({ slug }: { slug: string }) {
             <Features s={s} />
             <Shift s={s} />
             <Steps s={s} />
+            <Faq
+                id="faq"
+                eyebrow={`FAQ · ${s.seo.kicker}`}
+                title={
+                    <>
+                        Good <em>questions.</em>
+                    </>
+                }
+                items={s.seo.faq}
+            />
             <PromiseCta s={s} />
             <NextService next={next} />
         </main>

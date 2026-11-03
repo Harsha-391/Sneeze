@@ -43,6 +43,8 @@ export type ServiceContent = {
     };
     steps: { title: Line; items: { title: string; desc: string }[] };
     promise: { icon: React.ReactNode; title: Line[]; text: React.ReactNode; chips: string[] };
+    /** Jaipur SEO: meta title (50-60 chars with the template), description (150-160), H1 kicker, FAQs */
+    seo: { title: string; description: string; kicker: string; keywords: string[]; faq: { q: string; a: string }[] };
 };
 
 export const SERVICE_PAGES: ServiceContent[] = [
@@ -99,6 +101,17 @@ export const SERVICE_PAGES: ServiceContent[] = [
             ),
             chips: ['Hyper-realistic fashion editorial on Mars', 'Cyberpunk street food vendor in neon rain', 'Luxury perfume bottle floating in liquid gold', 'Cinematic drone shot of a glass city'],
         },
+        seo: {
+            title: "AI Content Creation Agency in Jaipur",
+            description: "AI-generated product photos, posters and video from a Jaipur creative agency. Studio-grade visuals in hours, not weeks, with up to 40% less spend. Start today.",
+            kicker: "AI content creation agency in Jaipur",
+            keywords: ["AI content creation agency in Jaipur", "AI product photography Jaipur", "AI video production Jaipur", "creative agency in Jaipur"],
+            faq: [
+                { q: "What is AI-generated content?", a: "AI-generated content is imagery, video or copy produced with generative AI models such as Midjourney and Runway, guided by human prompts and art direction. At Sneeze Media we use it to create product shots, campaign visuals and short videos that would be expensive or impossible to stage physically." },
+                { q: "Is AI content good enough for real brand campaigns?", a: "Yes, when humans stay in control. We calibrate generations to your brand guidelines and products, then our retouching team upscales, corrects and polishes every final image, so the output is consistent, on-brand and ready for ads, websites and print." },
+                { q: "Do you offer AI content creation for businesses in Jaipur?", a: "Yes. Sneeze Media is based in Jaipur and creates AI visuals for local and national brands, from product context shots and lookbooks to social clips and storyboards, without the cost of studio rent, crews or travel." },
+            ],
+        },
     },
     {
         slug: 'social-cults',
@@ -151,6 +164,17 @@ export const SERVICE_PAGES: ServiceContent[] = [
                 </>
             ),
             chips: ['Viral Reel Campaign', 'Discord Community Setup', 'Twitter/X Raids', 'Influencer Seeding', 'Meme Strategy'],
+        },
+        seo: {
+            title: "Social Media Marketing Agency in Jaipur",
+            description: "Instagram Reels, YouTube Shorts and community building from a social media marketing agency in Jaipur. We turn scrollers into fans. Start your campaign today.",
+            kicker: "Social media marketing agency in Jaipur",
+            keywords: ["social media marketing agency in Jaipur", "Instagram marketing agency in Jaipur", "Instagram reels agency in Jaipur", "social media management Jaipur"],
+            faq: [
+                { q: "What does a social media marketing agency in Jaipur do?", a: "A social media marketing agency plans, creates and publishes content that grows your audience and sales. Sneeze Media researches your audience, produces Reels and posts, manages communities and measures what drives reach and enquiries, for brands in Jaipur and across India." },
+                { q: "Do you create Instagram Reels for Jaipur businesses?", a: "Yes. Short-form video is our core format. We script hooks, shoot or generate footage, edit natively for Instagram Reels and YouTube Shorts, and publish at volume so we learn quickly which ideas the algorithm rewards." },
+                { q: "How do you measure social media results?", a: "We track reach, watch time, saves, shares and follower growth and, most importantly, the enquiries and sales that social drives. Winning ideas get repeated and scaled; anything that does not perform is dropped quickly." },
+            ],
         },
     },
     {
@@ -205,6 +229,17 @@ export const SERVICE_PAGES: ServiceContent[] = [
             ),
             chips: ['Lookbook Shoot', 'Product Editorial', 'Brand Campaign', 'Social Media Assets', 'Billboards'],
         },
+        seo: {
+            title: "Product & Fashion Photography in Jaipur",
+            description: "Editorial-grade product, fashion and brand photography in Jaipur, with art direction and signature colour grading. Visuals that stop the scroll. Book a shoot.",
+            kicker: "Product & fashion photography in Jaipur",
+            keywords: ["product photography in Jaipur", "fashion photography in Jaipur", "commercial photography Jaipur", "brand shoot Jaipur"],
+            faq: [
+                { q: "Do you offer product photography in Jaipur?", a: "Yes. We shoot product, e-commerce and lifestyle photography for brands in Jaipur, handling concept, lighting, styling and retouching, and deliver images sized for websites, marketplaces, social media and print." },
+                { q: "Can you shoot fashion lookbooks and brand campaigns?", a: "Yes. From moodboards and art direction to the shoot and the final grade, we produce lookbooks, campaign imagery and social assets with a consistent, premium look that makes your brand instantly recognisable." },
+                { q: "Can you combine real photography with AI visuals?", a: "Yes. Many projects mix both: we shoot the hero product for accuracy, then use AI to place it in new scenes, seasons or locations. That gives you far more usable images from a single shoot day." },
+            ],
+        },
     },
     {
         slug: 'performance',
@@ -253,6 +288,17 @@ export const SERVICE_PAGES: ServiceContent[] = [
             title: [{ text: 'Stop burning' }, { text: '', em: 'cash.' }],
             text: <strong>Start printing it.</strong>,
             chips: ['Meta Ads', 'TikTok Ads', 'YouTube Shorts', 'Dynamic Creative', 'UGC Ads'],
+        },
+        seo: {
+            title: "Performance Marketing & Ads Agency in Jaipur",
+            description: "Performance marketing agency in Jaipur for Meta, Google and YouTube ads. High-CTR creatives, rapid testing and ROAS-focused scaling. Talk to our team today.",
+            kicker: "Performance marketing agency in Jaipur",
+            keywords: ["performance marketing agency in Jaipur", "Google ads agency in Jaipur", "Meta ads agency in Jaipur", "advertising agency in Jaipur"],
+            faq: [
+                { q: "What is performance marketing?", a: "Performance marketing is advertising where you pay for, and optimise towards, measurable results such as leads, sales or app installs. Sneeze Media runs performance campaigns on Meta, Google and YouTube, testing many creative variations and scaling the ads with the best return on ad spend." },
+                { q: "Which ad platforms do you manage?", a: "We create and manage ads on Meta (Facebook and Instagram), Google Search and YouTube, plus LinkedIn for B2B brands. We also produce the ad creative itself, including UGC-style videos, so testing never stalls waiting for new assets." },
+                { q: "How quickly will I see results from ads?", a: "Results depend on budget, offer and market. Campaigns start gathering data from day one, and we review performance weekly, cutting losing creatives and scaling winners, so results compound over the first few months." },
+            ],
         },
     },
     {
@@ -307,6 +353,17 @@ export const SERVICE_PAGES: ServiceContent[] = [
             ),
             chips: ['Unboxing Videos', 'Testimonials', 'How-To Guides', 'Reaction Videos', 'ASMR'],
         },
+        seo: {
+            title: "UGC Video Production Agency in Jaipur",
+            description: "UGC video production agency in Jaipur: creator-led unboxings, testimonials and how-tos that feel like a friend’s recommendation and perform as ads. Start now.",
+            kicker: "UGC video production in Jaipur",
+            keywords: ["UGC video production agency in Jaipur", "UGC content creators Jaipur", "influencer marketing agency in Jaipur"],
+            faq: [
+                { q: "What is UGC content?", a: "UGC (user-generated content) is video or photo content made by real people rather than a brand studio, such as unboxings, reviews and how-tos. Because it feels like a recommendation from a friend, UGC is trusted more than polished ads and often performs better in paid social." },
+                { q: "Can you produce UGC videos for Jaipur brands?", a: "Yes. We match your brand with creators who fit your audience, write the briefs, handle product seeding and contracts, then edit the raw footage into ready-to-run ads and organic posts." },
+                { q: "How is UGC different from influencer marketing?", a: "Influencer marketing pays for access to a creator’s audience. UGC pays for the content itself, which your brand then publishes on its own channels and in ads. The two can work together, but UGC builds a steady library of assets for your brand." },
+            ],
+        },
     },
     {
         slug: 'web-experience',
@@ -316,7 +373,7 @@ export const SERVICE_PAGES: ServiceContent[] = [
         icon: <FaCode />,
         badge: 'Digital Dominion',
         hero: [{ text: 'Not just a website.' }, { text: 'Your digital ', em: 'empire.' }],
-        lede: 'Fast, SEO-optimized, and animated digital headquarters. We build sites that feel like apps and rank like encyclopedias.',
+        lede: 'Fast, SEO-optimized, and animated digital headquarters, designed and built in Jaipur. We build sites that feel like apps and rank like encyclopedias.',
         cta: 'Launch Project',
         objective: 'Web Development',
         glow: 'rgba(212, 175, 55, 0.45)',
@@ -359,6 +416,17 @@ export const SERVICE_PAGES: ServiceContent[] = [
                 </>
             ),
             chips: ['SaaS Landing Page', 'Portfolio Site', 'E-commerce Store', 'WebGL Experience', 'Corporate Site'],
+        },
+        seo: {
+            title: "Best Web Designing Agency in Jaipur",
+            description: "Looking for the best web designing agency in Jaipur? Sneeze Media builds fast, SEO-ready websites on Next.js, Shopify and WordPress. Get your proposal today.",
+            kicker: "Web design & development agency in Jaipur",
+            keywords: ["best web designing agency in Jaipur", "website development company in Jaipur", "website design in Jaipur", "SEO services in Jaipur", "Shopify developer in Jaipur"],
+            faq: [
+                { q: "What makes a good web designing agency in Jaipur?", a: "A good web design agency builds fast, mobile-first sites, handles on-page SEO and designs for conversions, not just looks. Sneeze Media builds custom Next.js and React websites for Jaipur businesses, with Core Web Vitals, structured data and analytics set up from day one." },
+                { q: "Do you build e-commerce and Shopify websites?", a: "Yes. We build Shopify stores, WordPress and Wix sites and fully custom Next.js storefronts, choosing the platform that fits your catalogue, budget and team, and we can take care of product photography and launch ads too." },
+                { q: "Will my new website be SEO-friendly?", a: "Yes. Every build ships with clean semantic HTML, unique titles and meta descriptions, schema markup, a sitemap and fast load times, so it is ready to rank for searches in Jaipur and across India." },
+            ],
         },
     },
 ];

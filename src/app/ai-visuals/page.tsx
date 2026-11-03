@@ -1,11 +1,14 @@
-import type { Metadata } from 'next';
 import ServicePage from '@/components/service/ServicePage';
+import JsonLd from '@/components/seo/JsonLd';
+import { serviceMetadata, serviceSchemas } from '@/content/seo';
 
-export const metadata: Metadata = {
-    title: 'AI-Gen Visuals',
-    description: 'AI-generated posters, product imagery and video synthesis: studio-grade visuals without the studio.',
-};
+export const metadata = serviceMetadata('ai-visuals');
 
 export default function Page() {
-    return <ServicePage slug="ai-visuals" />;
+    return (
+        <>
+            <JsonLd data={serviceSchemas('ai-visuals')} />
+            <ServicePage slug="ai-visuals" />
+        </>
+    );
 }

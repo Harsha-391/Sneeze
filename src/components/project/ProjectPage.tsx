@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { FaPhone, FaWhatsapp } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhone, FaWhatsapp } from 'react-icons/fa';
 import Button from '../ui/Button';
 import { CONTACTS } from '@/constants';
 import { OBJECTIVES, SERVICE_PAGES } from '@/content/services';
@@ -124,8 +124,12 @@ export default function ProjectPage() {
                     <span aria-current="page">Start a project</span>
                 </nav>
                 <h1 id="contact-title" className="serif h-hero">
+                    <span className="badge hero__kicker rv-fade" style={{ '--d': '60ms' } as React.CSSProperties}>
+                        <FaMapMarkerAlt aria-hidden="true" /> Hire a creative agency in Jaipur
+                    </span>
+                    <span className="sr-only">: </span>
                     <span className="rv-line" style={{ '--d': '100ms' } as React.CSSProperties}>
-                        <span>Let&apos;s make</span>
+                        <span>Let&apos;s make{' '}</span>
                     </span>
                     <span className="rv-line" style={{ '--i': 1, '--d': '100ms' } as React.CSSProperties}>
                         <span>

@@ -86,7 +86,7 @@ export default function Process() {
             <div ref={headRef} className="wrap process__head">
                 <h2 id="process-title" className="serif h-xl">
                     <span className="rv-line">
-                        <span>Ideas spread.</span>
+                        <span>Ideas spread.{' '}</span>
                     </span>
                     <span className="rv-line" style={{ '--i': 1 } as React.CSSProperties}>
                         <span>

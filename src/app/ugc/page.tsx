@@ -1,11 +1,14 @@
-import type { Metadata } from 'next';
 import ServicePage from '@/components/service/ServicePage';
+import JsonLd from '@/components/seo/JsonLd';
+import { serviceMetadata, serviceSchemas } from '@/content/seo';
 
-export const metadata: Metadata = {
-    title: 'UGC Factory',
-    description: 'Creator-led, platform-native UGC at volume: content that looks like a recommendation from a friend.',
-};
+export const metadata = serviceMetadata('ugc');
 
 export default function Page() {
-    return <ServicePage slug="ugc" />;
+    return (
+        <>
+            <JsonLd data={serviceSchemas('ugc')} />
+            <ServicePage slug="ugc" />
+        </>
+    );
 }

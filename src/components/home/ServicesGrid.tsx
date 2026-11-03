@@ -77,7 +77,7 @@ export default function ServicesGrid() {
                         <p className="eyebrow rv-fade">Capabilities</p>
                         <h2 id="services-title" className="serif h-l" style={{ marginTop: 18 }}>
                             <span className="rv-line">
-                                <span>Six ways we</span>
+                                <span>Six ways we{' '}</span>
                             </span>
                             <span className="rv-line" style={{ '--i': 1 } as React.CSSProperties}>
                                 <span>

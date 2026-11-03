@@ -44,7 +44,7 @@ export default function Promises() {
             <div ref={headRef} className="wrap promises__title">
                 <h2 id="promises-title" className="serif h-xl">
                     <span className="rv-line">
-                        <span>Our</span>
+                        <span>Our{' '}</span>
                     </span>
                     <span className="rv-line" style={{ '--i': 1 } as React.CSSProperties}>
                         <span>

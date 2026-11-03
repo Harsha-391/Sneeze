@@ -1,11 +1,14 @@
-import type { Metadata } from 'next';
 import ServicePage from '@/components/service/ServicePage';
+import JsonLd from '@/components/seo/JsonLd';
+import { serviceMetadata, serviceSchemas } from '@/content/seo';
 
-export const metadata: Metadata = {
-    title: 'Web Experiences',
-    description: 'Fast, SEO-optimised, animated websites built on Next.js that feel like apps and rank like encyclopedias.',
-};
+export const metadata = serviceMetadata('web-experience');
 
 export default function Page() {
-    return <ServicePage slug="web-experience" />;
+    return (
+        <>
+            <JsonLd data={serviceSchemas('web-experience')} />
+            <ServicePage slug="web-experience" />
+        </>
+    );
 }

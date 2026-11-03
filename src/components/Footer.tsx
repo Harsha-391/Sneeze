@@ -4,6 +4,7 @@ import { useLenis } from 'lenis/react';
 import Button from './ui/Button';
 import Waves from './Waves';
 import { CONTACTS, SERVICES_DATA } from '../constants';
+import { addressLine, BUSINESS } from '@/content/site';
 import { useReveal } from '@/lib/motion';
 
 const WORD = ['S', 'N', 'E', 'E', 'Z', 'E', '.'];
@@ -20,8 +21,8 @@ export default function Footer() {
 
             <div ref={statementRef} className="wrap">
                 <h2 className="footer__statement serif lead rv-fade">
-                    Sneeze Media is a full-stack creative studio where <em>AI</em>, design and performance marketing collide,
-                    building brands that spread.
+                    Sneeze Media is a full-stack creative studio in <em>Jaipur</em> where AI, design and performance marketing
+                    collide, building brands that spread.
                 </h2>
                 <div className="footer__cta rv-fade" style={{ '--d': '150ms' } as React.CSSProperties}>
                     <Button href="/project" variant="solid">
@@ -40,7 +41,24 @@ export default function Footer() {
                 </div>
 
                 <div ref={gridRef} className="footer__grid">
-                    <h3 className="serif rv-fade">Partnering with ambitious brands &amp; bold people.</h3>
+                    <div className="rv-fade">
+                        <h3 className="serif">Partnering with ambitious brands &amp; bold people.</h3>
+                        <address className="footer__addr">
+                            {BUSINESS.name}
+                            <br />
+                            {BUSINESS.tagline}
+                            <br />
+                            {addressLine()}
+                            {BUSINESS.email && (
+                                <>
+                                    <br />
+                                    <a className="uline" href={`mailto:${BUSINESS.email}`}>
+                                        {BUSINESS.email}
+                                    </a>
+                                </>
+                            )}
+                        </address>
+                    </div>
 
                     <div className="footer__col rv-fade" style={{ '--i': 1 } as React.CSSProperties}>
                         <h4>Call</h4>
@@ -88,7 +106,7 @@ export default function Footer() {
                 </div>
 
                 <div className="footer__bottom">
-                    <p>© {new Date().getFullYear()} Sneeze Media. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Sneeze Media · Creative &amp; digital marketing agency in Jaipur. All rights reserved.</p>
                     <button
                         type="button"
                         className="to-top"

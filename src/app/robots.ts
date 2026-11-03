@@ -1,14 +1,11 @@
-import { MetadataRoute } from 'next'
-
-const BASE_URL = 'https://www.sneeze.media';
+import { MetadataRoute } from 'next';
+import { SITE_URL } from '@/content/site';
 
 export default function robots(): MetadataRoute.Robots {
     return {
-        rules: {
-            userAgent: '*',
-            allow: '/',
-            disallow: '/private/',
-        },
-        sitemap: `${BASE_URL}/sitemap.xml`,
-    }
+        // Everyone (incl. Googlebot, Bingbot and AI search crawlers) may crawl the whole site.
+        rules: { userAgent: '*', allow: '/' },
+        sitemap: `${SITE_URL}/sitemap.xml`,
+        host: SITE_URL,
+    };
 }
