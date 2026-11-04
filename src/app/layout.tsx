@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Anton, Inter } from 'next/font/google';
+import { Antonio, Inter, Oswald } from 'next/font/google';
 import './globals.css';
 import './service-pages.css';
 import './longform.css';
@@ -16,8 +16,10 @@ import { BUSINESS, SITE_URL } from '../config/site';
 import { organizationSchema } from '../content/seo';
 import { DRUK_PRELOAD, drukCss } from '../lib/druk';
 
-// Display fallback until the licensed Druk Condensed files are added (see src/lib/druk.ts)
-const anton = Anton({ subsets: ['latin'], weight: '400', variable: '--font-anton', display: 'swap' });
+// Logo, wordmark and numbers (the original design)
+const oswald = Oswald({ subsets: ['latin'], weight: ['400', '500', '700'], variable: '--font-oswald', display: 'swap' });
+// Headline stand-in until the licensed Druk Condensed files are added (see src/lib/druk.ts)
+const antonio = Antonio({ subsets: ['latin'], weight: ['500', '600', '700'], variable: '--font-antonio', display: 'swap' });
 const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], variable: '--font-inter', display: 'swap' });
 
 export const metadata: Metadata = {
@@ -62,7 +64,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="en-IN" className={`${anton.variable} ${inter.variable}`} suppressHydrationWarning>
+        <html lang="en-IN" className={`${oswald.variable} ${antonio.variable} ${inter.variable}`} suppressHydrationWarning>
             <head>
                 {/* Progressive enhancement: reveals only hide content once JS is known to run; first-load lets heroes animate from the first paint. */}
                 <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js','first-load')" }} />

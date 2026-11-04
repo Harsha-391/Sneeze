@@ -43,9 +43,9 @@ function scan(): Face[] {
 
 const FACES = scan();
 
-/** The file to preload: the upright Super (or the heaviest upright weight found). */
+/** The file to preload: the upright weight closest to the headline weight (600). */
 export const DRUK_PRELOAD = FACES.filter((f) => !f.italic)
-    .sort((a, b) => b.weight - a.weight)[0]
+    .sort((a, b) => Math.abs(a.weight - 600) - Math.abs(b.weight - 600))[0]
     ?.urls.find((u) => u.endsWith('.woff2'));
 
 export const DRUK_FOUND = FACES.length > 0;
@@ -53,6 +53,8 @@ export const DRUK_FOUND = FACES.length > 0;
 /** @font-face rules: always the local() faces, plus any files found in public/fonts/druk. */
 export function drukCss() {
     const rules = [
+        `@font-face{font-family:'Druk Condensed';font-weight:500;font-style:normal;font-display:swap;src:local('Druk Condensed Medium'),local('DrukCond-Medium');}`,
+        `@font-face{font-family:'Druk Condensed';font-weight:700;font-style:normal;font-display:swap;src:local('Druk Condensed Bold'),local('DrukCond-Bold');}`,
         `@font-face{font-family:'Druk Condensed';font-weight:900;font-style:normal;font-display:swap;src:local('Druk Condensed Super'),local('DrukCond-Super');}`,
         `@font-face{font-family:'Druk Condensed';font-weight:900;font-style:italic;font-display:swap;src:local('Druk Condensed Super Italic'),local('DrukCond-SuperItalic');}`,
     ];

@@ -277,7 +277,7 @@
 }
 
 .vplate__num {
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-size: 13px;
     letter-spacing: 0.1em;
     opacity: 0.6;
@@ -948,7 +948,7 @@
 }
 
 .sheet__no {
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-size: 12px;
     letter-spacing: 0.1em;
     color: var(--gold);
@@ -1298,7 +1298,7 @@
 }
 
 .algo__n {
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-size: clamp(60px, 7vw, 124px);
     line-height: 0.85;
     color: transparent;
@@ -1576,7 +1576,7 @@
 
 .pipe__n {
     padding-top: 6px;
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-size: 20px;
     color: var(--gold);
 }
@@ -1772,7 +1772,7 @@
 }
 
 .spec__list dt span {
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-size: 13px;
     color: var(--gold);
 }

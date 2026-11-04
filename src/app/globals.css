@@ -16,8 +16,8 @@
     --line: rgba(244, 239, 227, 0.12);
     --line-strong: rgba(244, 239, 227, 0.24);
     --gold: #d4af37;
-    /* Brand display face: Druk Condensed (licensed, see src/lib/druk.ts), Anton until it is installed */
-    --font-display: 'Druk Condensed', var(--font-anton), Impact, 'Arial Narrow', sans-serif;
+    /* Headline face: Druk Condensed (licensed, see src/lib/druk.ts), Antonio until it is installed */
+    --font-display: 'Druk Condensed', var(--font-antonio), var(--font-oswald), 'Arial Narrow', sans-serif;
     --gold-hi: #f2d47e;
     --gold-lo: #8c6d18;
     --cream: #f4efe3;
@@ -137,7 +137,7 @@ html.lenis body {
 
 .serif {
     font-family: var(--font-display);
-    font-weight: 900;
+    font-weight: 600;
     letter-spacing: 0.004em;
     font-synthesis: none;
 }
@@ -149,11 +149,10 @@ em.serif {
 }
 
 .display {
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), Impact, sans-serif;
     text-transform: uppercase;
-    font-weight: 900;
-    letter-spacing: 0;
-    font-synthesis: none;
+    font-weight: 700;
+    letter-spacing: -0.01em;
 }
 
 .gold {
@@ -556,7 +555,7 @@ em.serif {
     display: flex;
     justify-content: center;
     overflow: hidden;
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-weight: 700;
     font-size: clamp(64px, 17vw, 300px);
     line-height: 0.9;
@@ -581,7 +580,7 @@ em.serif {
 }
 
 .preloader__count {
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-size: clamp(40px, 6vw, 96px);
     line-height: 1;
     color: var(--ink);
@@ -649,7 +648,7 @@ em.serif {
 .logo {
     display: inline-flex;
     align-items: baseline;
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-weight: 700;
     font-size: 26px;
     letter-spacing: -0.02em;
@@ -796,7 +795,7 @@ em.serif {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-weight: 500;
     font-size: 17px;
     letter-spacing: 0.04em;
@@ -1211,7 +1210,7 @@ em.serif {
 }
 
 .card__num {
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-size: 14px;
     letter-spacing: 0.08em;
     opacity: 0.6;
@@ -1321,7 +1320,7 @@ em.serif {
 
 .bigword__text {
     display: inline-flex;
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-weight: 700;
     font-size: clamp(56px, 11vw, 220px);
     line-height: 1.02;
@@ -1397,7 +1396,7 @@ em.serif {
 }
 
 .peek h4 {
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     text-transform: uppercase;
     font-size: 22px;
     margin-bottom: 10px;
@@ -1499,7 +1498,7 @@ em.serif {
 }
 
 .oval__num {
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-size: 13px;
     letter-spacing: 0.2em;
     color: var(--gold);
@@ -1585,7 +1584,7 @@ em.serif {
 }
 
 .decrypt__to {
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-weight: 700;
     font-size: clamp(28px, 5.2vw, 84px);
     line-height: 1;
@@ -1834,7 +1833,7 @@ em.serif {
     justify-content: center;
     margin-top: clamp(70px, 10vw, 180px);
     color: var(--gold);
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-weight: 700;
     font-size: clamp(80px, 23vw, 440px);
     line-height: 0.8;
@@ -2106,7 +2105,7 @@ html.pt-enter .page-root {
     left: var(--pad);
     bottom: calc(var(--pad) * 0.8);
     z-index: 1;
-    font-family: var(--font-display);
+    font-family: var(--font-oswald), sans-serif;
     font-weight: 700;
     font-size: 22px;
     text-transform: uppercase;
