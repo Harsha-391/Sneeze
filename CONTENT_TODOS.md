@@ -12,6 +12,15 @@ npm run content:check
 npm run build && npm run seo:check
 ```
 
+## 0. Brand font: Druk Condensed (licensed)
+
+Headlines, big statements, the logo and the SNEEZE wordmark are set in **Druk Condensed**. Druk is a paid font from Commercial Type, so the files can't be downloaded for you. Until they're added, browsers use Druk if it's installed on the viewer's computer, and everyone else sees **Anton**, the closest free condensed face.
+
+To switch the whole site to Druk:
+1. Get the **web licence** files from Commercial Type (`.woff2`, plus `.woff` if you have them).
+2. Create the folder `public/fonts/druk/` and put the files in it. Keep the weight in each file name, e.g. `DrukCond-Super-Web.woff2` or `DrukCond-SuperItalic-Web.woff2`.
+3. Push. At build time the site detects the files: weight comes from the name (Medium, Bold, Heavy, Super) and italic from "Italic". It writes the `@font-face` rules and preloads the main weight. Headlines use the Super (900) weight.
+
 ## 1. Business details: `src/config/site.ts`
 
 Every value starting with `TODO_` is automatically left out of the footer, contact page and JSON-LD until you replace it.

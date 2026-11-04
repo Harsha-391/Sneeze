@@ -346,7 +346,7 @@ html:not(.js) .manifesto__text .w {
 }
 
 .md-lead {
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(22px, 1.9vw, 30px);
     line-height: 1.4;
     color: var(--ink);
@@ -1998,4 +1998,87 @@ html.first-load :is(.lf-hero, .ai-hero, .soc-hero, .ed-cover, .perf-hero, .ugc-h
         font-size: 12px;
         letter-spacing: 0.08em;
     }
+}
+
+/* =====================================================================
+   DRUK CONDENSED TYPE SYSTEM
+   Big headlines run uppercase and tight, the way Druk is meant to be set.
+   Paragraph-length text that used the old serif moves to Inter.
+   ===================================================================== */
+.h-hero,
+.h-xl,
+.h-l,
+.hero__title,
+.lf-hero__title,
+.send__title,
+.nf__title,
+.hub__title,
+.md-h2,
+.dir__places,
+.ai-hero__title,
+.soc-hero__title,
+.ed-cover__title,
+.perf-hero__title,
+.ugc-hero__title,
+.web-hero__title,
+.footer__statement,
+.contact-grid__h,
+.faq__aside h2,
+.next-svc__title {
+    text-transform: uppercase;
+    line-height: 0.9;
+    letter-spacing: 0.005em;
+}
+
+.lf-hero__title,
+.lf-hero__title--long {
+    line-height: 0.92;
+}
+
+.md-h2 {
+    line-height: 0.95;
+}
+
+.md-lead,
+.ed-feature__cols,
+.field textarea,
+.tile__cap,
+.prompt__text,
+.ctable tbody td:last-child,
+.send__text strong {
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    text-transform: none;
+}
+
+.md-lead {
+    font-weight: 300;
+}
+
+/* A menu link was just chosen: fade the panel out and keep it shut while the
+   pointer still rests on it (re-arms when the pointer leaves the nav). */
+.nav.is-settled .nav__item > .mega,
+.nav.is-settled .nav__item:hover > .mega,
+.nav.is-settled .nav__item:focus-within > .mega {
+    opacity: 0;
+    visibility: hidden;
+    translate: -50% 10px;
+    pointer-events: none;
+    transition:
+        opacity 0.25s ease,
+        translate 0.35s var(--ease-out),
+        visibility 0s linear 0.35s;
+}
+
+.nav.is-settled .nav__item:hover .nav__toggle {
+    color: var(--faint);
+    transform: none;
+}
+
+/* the homepage definition paragraph reads better in Inter */
+.local__def {
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-weight: 300;
+    letter-spacing: -0.01em;
 }

@@ -5,6 +5,7 @@ import { useLenis } from 'lenis/react';
 import { useEffect, useRef, useState } from 'react';
 import { FaChevronDown, FaPhone, FaWhatsapp } from 'react-icons/fa';
 import Button from './ui/Button';
+import { pageTransition } from '@/lib/motion';
 import { CONTACTS } from '../constants';
 import { COMBOS, COMPANY, HUBS, INDUSTRIES, LOCATIONS, PILLAR, RESOURCES, SERVICES, STUDIO, type RouteLink } from '@/content/routes';
 
@@ -61,6 +62,19 @@ export default function Header() {
     const [open, setOpen] = useState<null | 'call' | 'chat'>(null);
     const [mega, setMega] = useState<string | null>(null);
     const [menu, setMenu] = useState(false);
+    // After a menu link is clicked, keep panels shut (even under a resting
+    // pointer or keyboard focus) until the pointer leaves the nav.
+    const [settled, setSettled] = useState(false);
+    const settledAt = useRef(0);
+
+    /** Close every menu the moment a menu link is chosen, so it fades out as the page transition starts. */
+    const chose = () => {
+        settledAt.current = performance.now();
+        setSettled(true);
+        setMega(null);
+        setMenu(false);
+        (document.activeElement as HTMLElement | null)?.blur?.();
+    };
     const pathname = usePathname();
 
     const lenis = useLenis(({ scroll, direction }) => {
@@ -77,6 +91,29 @@ export default function Header() {
         setMega(null);
         setOpen(null);
     }, [pathname]);
+
+    // The page transition intercepts link clicks before React sees them, so close
+    // every menu the instant a transition starts (whatever link started it).
+    useEffect(
+        () =>
+            pageTransition.subscribe(() => {
+                if (!pageTransition.isReady()) chose();
+            }),
+        []
+    );
+
+    // Re-arm hover menus only when the pointer genuinely moves off the nav after
+    // the page transition (the curtain passing over the header doesn't count).
+    useEffect(() => {
+        if (!settled) return;
+        const onMove = (e: PointerEvent) => {
+            if (performance.now() - settledAt.current < 1800) return;
+            const nav = headerRef.current?.querySelector('.nav');
+            if (nav && !nav.contains(e.target as Node)) setSettled(false);
+        };
+        document.addEventListener('pointermove', onMove, { passive: true });
+        return () => document.removeEventListener('pointermove', onMove);
+    }, [settled]);
 
     // The mobile menu freezes the page behind it.
     useEffect(() => {
@@ -114,11 +151,11 @@ export default function Header() {
                     Sneeze<span className="logo__dot">.</span>
                 </Link>
 
-                <nav className="nav" aria-label="Main">
+                <nav className={`nav${settled ? ' is-settled' : ''}`} aria-label="Main">
                     <ul className="nav__list">
                         {GROUPS.map((g) => (
                             <li key={g.key} className={`nav__item${mega === g.key ? ' is-open' : ''}`} onMouseLeave={() => mega === g.key && setMega(null)}>
-                                <Link href={g.href} className="nav__top" prefetch={false}>
+                                <Link href={g.href} className="nav__top" prefetch={false} onClick={chose}>
                                     {g.label}
                                 </Link>
                                 <button
@@ -138,7 +175,7 @@ export default function Header() {
                                             <ul>
                                                 {c.links.map((l) => (
                                                     <li key={l.href}>
-                                                        <Link href={l.href} className="mega__link" prefetch={false}>
+                                                        <Link href={l.href} className="mega__link" prefetch={false} onClick={chose}>
                                                             <span>{l.label}</span>
                                                             {l.blurb && <small>{l.blurb}</small>}
                                                         </Link>
@@ -151,7 +188,7 @@ export default function Header() {
                             </li>
                         ))}
                         <li className="nav__item">
-                            <Link href="/contact" className="nav__top">
+                            <Link href="/contact" className="nav__top" onClick={chose}>
                                 Contact
                             </Link>
                         </li>
@@ -243,7 +280,7 @@ export default function Header() {
                             <summary className="serif">{g.label}</summary>
                             <ul>
                                 <li>
-                                    <Link href={g.href} className="mnav__hub" prefetch={false}>
+                                    <Link href={g.href} className="mnav__hub" prefetch={false} onClick={chose}>
                                         All {g.label.toLowerCase()}
                                     </Link>
                                 </li>
@@ -252,7 +289,7 @@ export default function Header() {
                                     .filter((l) => l.href !== g.href)
                                     .map((l) => (
                                         <li key={l.href}>
-                                            <Link href={l.href} prefetch={false}>
+                                            <Link href={l.href} prefetch={false} onClick={chose}>
                                                 {l.label}
                                             </Link>
                                         </li>
@@ -260,7 +297,7 @@ export default function Header() {
                             </ul>
                         </details>
                     ))}
-                    <Link href="/contact" className="mnav__contact serif" prefetch={false}>
+                    <Link href="/contact" className="mnav__contact serif" prefetch={false} onClick={chose}>
                         Contact
                     </Link>
                     <div className="mnav__actions">

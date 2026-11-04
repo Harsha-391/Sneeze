@@ -81,7 +81,7 @@
 }
 
 .ctable tbody td:last-child {
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-display);
     font-size: 1.3em;
     line-height: 1.2;
     color: var(--ink);
@@ -117,7 +117,7 @@
 }
 
 .send__text strong {
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-display);
     font-style: italic;
     font-weight: 400;
     color: var(--gold);
@@ -195,7 +195,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-display);
     font-style: italic;
     font-size: clamp(20px, 1.9vw, 32px);
 }
@@ -277,7 +277,7 @@
 }
 
 .vplate__num {
-    font-family: var(--font-oswald), sans-serif;
+    font-family: var(--font-display);
     font-size: 13px;
     letter-spacing: 0.1em;
     opacity: 0.6;
@@ -888,7 +888,7 @@
 
 .ed-feature__cols {
     max-width: 40ch;
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(20px, 1.75vw, 28px);
     line-height: 1.45;
     color: var(--ink-dim);
@@ -897,7 +897,7 @@
 .ed-drop {
     float: left;
     margin: 0.08em 0.12em 0 0;
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-display);
     font-size: 4.35em;
     line-height: 0.72;
     color: var(--gold);
@@ -948,7 +948,7 @@
 }
 
 .sheet__no {
-    font-family: var(--font-oswald), sans-serif;
+    font-family: var(--font-display);
     font-size: 12px;
     letter-spacing: 0.1em;
     color: var(--gold);
@@ -985,7 +985,7 @@
 
 .sheet__deliver {
     margin-top: clamp(40px, 5vw, 80px);
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(26px, 3.2vw, 56px);
     line-height: 1.2;
 }
@@ -1298,7 +1298,7 @@
 }
 
 .algo__n {
-    font-family: var(--font-oswald), sans-serif;
+    font-family: var(--font-display);
     font-size: clamp(60px, 7vw, 124px);
     line-height: 0.85;
     color: transparent;
@@ -1418,7 +1418,7 @@
 }
 
 .tile__cap {
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(18px, 1.6vw, 26px);
     font-style: italic;
     line-height: 1.15;
@@ -1576,7 +1576,7 @@
 
 .pipe__n {
     padding-top: 6px;
-    font-family: var(--font-oswald), sans-serif;
+    font-family: var(--font-display);
     font-size: 20px;
     color: var(--gold);
 }
@@ -1766,13 +1766,13 @@
     display: flex;
     align-items: baseline;
     gap: 14px;
-    font-family: var(--font-serif), Georgia, serif;
+    font-family: var(--font-display);
     font-size: clamp(24px, 2vw, 34px);
     line-height: 1.1;
 }
 
 .spec__list dt span {
-    font-family: var(--font-oswald), sans-serif;
+    font-family: var(--font-display);
     font-size: 13px;
     color: var(--gold);
 }

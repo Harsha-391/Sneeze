@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Instrument_Serif, Oswald } from 'next/font/google';
+import { Anton, Inter } from 'next/font/google';
 import './globals.css';
 import './service-pages.css';
 import './longform.css';
@@ -14,16 +14,11 @@ import JsonLd from '../components/seo/JsonLd';
 import { HOME_SEO } from '../content/site';
 import { BUSINESS, SITE_URL } from '../config/site';
 import { organizationSchema } from '../content/seo';
+import { DRUK_PRELOAD, drukCss } from '../lib/druk';
 
-const oswald = Oswald({ subsets: ['latin'], weight: ['400', '500', '700'], variable: '--font-oswald', display: 'swap' });
+// Display fallback until the licensed Druk Condensed files are added (see src/lib/druk.ts)
+const anton = Anton({ subsets: ['latin'], weight: '400', variable: '--font-anton', display: 'swap' });
 const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], variable: '--font-inter', display: 'swap' });
-const serif = Instrument_Serif({
-    subsets: ['latin'],
-    weight: '400',
-    style: ['normal', 'italic'],
-    variable: '--font-serif',
-    display: 'swap',
-});
 
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
@@ -67,10 +62,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="en-IN" className={`${oswald.variable} ${inter.variable} ${serif.variable}`} suppressHydrationWarning>
+        <html lang="en-IN" className={`${anton.variable} ${inter.variable}`} suppressHydrationWarning>
             <head>
                 {/* Progressive enhancement: reveals only hide content once JS is known to run; first-load lets heroes animate from the first paint. */}
                 <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js','first-load')" }} />
+                {/* Druk Condensed: licensed files in public/fonts/druk are picked up at build time */}
+                <style dangerouslySetInnerHTML={{ __html: drukCss() }} />
+                {DRUK_PRELOAD && <link rel="preload" href={DRUK_PRELOAD} as="font" type="font/woff2" crossOrigin="anonymous" />}
             </head>
             <body>
                 <JsonLd data={organizationSchema()} />
