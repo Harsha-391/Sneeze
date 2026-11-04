@@ -2,7 +2,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import Button from '../../ui/Button';
-import { Crumbs, getPage, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
+import { type BespokeProps, Crumbs, getPage, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
 import { useReveal } from '@/lib/motion';
 
 const { s, next } = getPage('editorial');
@@ -144,15 +144,17 @@ function ContactSheet() {
     );
 }
 
-export default function EditorialPage() {
+export default function EditorialPage({ children, faq, after }: BespokeProps) {
     return (
         <main className="svcp svcp--ed">
             <Cover />
             <Contents />
             <Feature />
             <ContactSheet />
-            <ServiceFaq s={s} />
+            {children}
+            <ServiceFaq s={s} items={faq} />
             <ServiceEnd s={s} />
+            {after}
             <NextService next={next} />
         </main>
     );

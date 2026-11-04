@@ -1,7 +1,10 @@
 'use client';
 import Link from 'next/link';
 import { Arrow } from '../ui/Button';
-import { addressLine, BUSINESS, HOME_SEO } from '@/content/site';
+import { addressLine, BUSINESS } from '@/config/site';
+import { PILLAR, SERVICES, STUDIO } from '@/content/routes';
+
+const ALL = [PILLAR, ...SERVICES, ...STUDIO];
 import { useReveal } from '@/lib/motion';
 
 /**
@@ -28,17 +31,17 @@ export default function LocalSeo() {
                     </h2>
                     <p className="local__def lead serif rv-fade" style={{ '--d': '200ms' } as React.CSSProperties}>
                         Sneeze Media is a creative and digital marketing agency in Jaipur, Rajasthan. We plan, produce and run
-                        content, social media, performance ads, UGC and websites for ambitious brands, pairing AI-powered
-                        production with human strategy and taste.
+                        SEO, websites, social media, Google and Meta ads, branding, video and content for ambitious brands,
+                        pairing AI-powered production with human strategy and taste.
                     </p>
                 </div>
 
                 <ul className="local__list">
-                    {HOME_SEO.localServices.map((l, i) => (
-                        <li key={l.href} className="rv-fade" style={{ '--i': i + 2 } as React.CSSProperties}>
+                    {ALL.map((l, i) => (
+                        <li key={l.href} className="rv-fade" style={{ '--i': Math.min(i, 8) + 2 } as React.CSSProperties}>
                             <Link href={l.href} className="local__link">
                                 <span className="local__label serif">{l.label}</span>
-                                <small>{l.kind}</small>
+                                <small>{l.blurb}</small>
                                 <span className="local__arrow" aria-hidden="true">
                                     <Arrow />
                                 </span>

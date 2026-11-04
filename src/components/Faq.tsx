@@ -40,7 +40,7 @@ export default function Faq({
                     </h2>
                     <p className="faq__note rv-fade" style={{ '--d': '200ms' } as React.CSSProperties}>
                         Can&apos;t find your answer?{' '}
-                        <Link href="/project" className="uline">
+                        <Link href="/contact" className="uline">
                             Ask us directly
                         </Link>
                         .

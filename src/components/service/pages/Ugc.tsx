@@ -1,6 +1,6 @@
 'use client';
 import Button from '../../ui/Button';
-import { Crumbs, getPage, Head, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
+import { type BespokeProps, Crumbs, getPage, Head, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
 import { usePauseOffscreen, useReveal } from '@/lib/motion';
 
 const { s, next } = getPage('ugc');
@@ -165,15 +165,17 @@ function Pipeline() {
     );
 }
 
-export default function UgcPage() {
+export default function UgcPage({ children, faq, after }: BespokeProps) {
     return (
         <main className="svcp svcp--ugc">
             <Hero />
             <Strike />
             <Factory />
             <Pipeline />
-            <ServiceFaq s={s} />
+            {children}
+            <ServiceFaq s={s} items={faq} />
             <ServiceEnd s={s} />
+            {after}
             <NextService next={next} />
         </main>
     );

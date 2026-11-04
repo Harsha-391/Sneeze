@@ -3,7 +3,7 @@ import { useLenis } from 'lenis/react';
 import type Lenis from 'lenis';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useLayoutEffect, useRef } from 'react';
-import { SERVICES_DATA } from '@/constants';
+import { linkFor } from '@/content/routes';
 import { pageTransition } from '@/lib/motion';
 
 /**
@@ -22,11 +22,14 @@ import { pageTransition } from '@/lib/motion';
  * add `data-no-transition` to opt a link out.
  */
 
-const LABELS: Record<string, string> = {
+const HUB_LABELS: Record<string, string> = {
     '/': 'Home',
-    '/project': 'Start a project',
-    ...Object.fromEntries(SERVICES_DATA.map((s) => [s.href, s.title])),
+    '/services': 'Services',
+    '/industries': 'Industries',
+    '/locations': 'Locations',
+    '/blog': 'Blog',
 };
+const labelFor = (path: string) => HUB_LABELS[path] ?? linkFor(path)?.label ?? 'Sneeze Media';
 
 const COVER_MS = 750;
 const REVEAL_MS = 1000;
@@ -63,7 +66,7 @@ export default function PageTransition() {
             busy.current = true;
             const fast = reduced();
 
-            if (labelRef.current) labelRef.current.textContent = LABELS[url.pathname] ?? 'Sneeze Media';
+            if (labelRef.current) labelRef.current.textContent = labelFor(url.pathname);
 
             // 1. LEAVE
             pageTransition.start();
@@ -157,7 +160,7 @@ export default function PageTransition() {
         if (!el || busy.current) return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         busy.current = true;
-        if (labelRef.current) labelRef.current.textContent = LABELS[pathname] ?? 'Sneeze Media';
+        if (labelRef.current) labelRef.current.textContent = labelFor(pathname);
         el.dataset.state = 'covered';
         html.classList.add('pt-enter-from');
         nextPaint().then(async () => {

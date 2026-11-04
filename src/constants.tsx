@@ -33,7 +33,7 @@ export type Service = {
 export const SERVICES_DATA: Service[] = [
     {
         title: 'AI-Gen Visuals',
-        href: '/ai-visuals',
+        href: '/services/ai-content-creation-jaipur',
         iconMain: <FaRobot />,
         iconHover: <FaSkull />,
         desc: 'We engineer imaginative posters and AI video synthesis.',
@@ -44,7 +44,7 @@ export const SERVICES_DATA: Service[] = [
     },
     {
         title: 'Social Cults',
-        href: '/social-cults',
+        href: '/services/social-media-marketing-jaipur',
         iconMain: <FaInstagram />,
         iconHover: <FaFire />,
         desc: 'Algorithm-hacking reels and community warfare.',
@@ -55,7 +55,7 @@ export const SERVICES_DATA: Service[] = [
     },
     {
         title: 'Editorial Stills',
-        href: '/editorial',
+        href: '/services/product-photography-jaipur',
         iconMain: <FaCameraRetro />,
         iconHover: <FaEye />,
         desc: 'Editorial-grade photography. Texture, grain and vibe.',
@@ -66,7 +66,7 @@ export const SERVICES_DATA: Service[] = [
     },
     {
         title: 'Performance Ads',
-        href: '/performance',
+        href: '/services/performance-marketing-jaipur',
         iconMain: <FaBullhorn />,
         iconHover: <FaBolt />,
         desc: 'High-CTR creatives designed purely for conversion.',
@@ -77,7 +77,7 @@ export const SERVICES_DATA: Service[] = [
     },
     {
         title: 'UGC Factory',
-        href: '/ugc',
+        href: '/services/ugc-video-production-jaipur',
         iconMain: <FaFingerprint />,
         iconHover: <FaGhost />,
         desc: 'Authenticity scales. Creators that look like friends.',
@@ -88,7 +88,7 @@ export const SERVICES_DATA: Service[] = [
     },
     {
         title: 'Web Experiences',
-        href: '/web-experience',
+        href: '/services/website-design-development-jaipur',
         iconMain: <FaCode />,
         iconHover: <FaGem />,
         desc: 'Fast, SEO-optimised, animated digital headquarters.',

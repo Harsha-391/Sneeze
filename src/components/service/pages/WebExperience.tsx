@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { useRef } from 'react';
 import Button from '../../ui/Button';
-import { Crumbs, getPage, Head, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
+import { type BespokeProps, Crumbs, getPage, Head, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
 import { useReveal } from '@/lib/motion';
 
 const { s, next } = getPage('web-experience');
@@ -194,7 +194,7 @@ function Builds() {
     );
 }
 
-export default function WebExperiencePage() {
+export default function WebExperiencePage({ children, faq, after }: BespokeProps) {
     return (
         <main className="svcp svcp--web">
             <Hero />
@@ -202,8 +202,10 @@ export default function WebExperiencePage() {
             <Versus />
             <Build />
             <Builds />
-            <ServiceFaq s={s} />
+            {children}
+            <ServiceFaq s={s} items={faq} />
             <ServiceEnd s={s} />
+            {after}
             <NextService next={next} />
         </main>
     );

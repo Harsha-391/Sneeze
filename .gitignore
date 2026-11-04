@@ -18,4 +18,4 @@
 npm-debug.log*
 
 # VISUAL STUDIO (This fixes your error!)
-.vs/
+.vs/*.tsbuildinfo

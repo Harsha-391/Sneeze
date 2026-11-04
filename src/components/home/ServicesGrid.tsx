@@ -8,12 +8,12 @@ import { Arrow } from '../ui/Button';
 
 /** Typographic plate per service: a line of copy on a flat tone, no ornament. */
 const PLATES: Record<string, { line: [string, string]; tone: string; ink: string }> = {
-    '/ai-visuals': { line: ['Imagination,', 'generated.'], tone: '#efe8d8', ink: '#0b0a08' },
-    '/social-cults': { line: ['Followers into', 'fanatics.'], tone: '#2a1d14', ink: '#f4efe3' },
-    '/editorial': { line: ['Silence', 'the noise.'], tone: '#1c1913', ink: '#f4efe3' },
-    '/performance': { line: ['Creative that', 'converts.'], tone: '#d4af37', ink: '#0b0a08' },
-    '/ugc': { line: ['Real people.', 'Real trust.'], tone: '#e4d5b7', ink: '#0b0a08' },
-    '/web-experience': { line: ['Fast. Findable.', 'Yours.'], tone: '#141210', ink: '#f4efe3' },
+    '/services/ai-content-creation-jaipur': { line: ['Imagination,', 'generated.'], tone: '#efe8d8', ink: '#0b0a08' },
+    '/services/social-media-marketing-jaipur': { line: ['Followers into', 'fanatics.'], tone: '#2a1d14', ink: '#f4efe3' },
+    '/services/product-photography-jaipur': { line: ['Silence', 'the noise.'], tone: '#1c1913', ink: '#f4efe3' },
+    '/services/performance-marketing-jaipur': { line: ['Creative that', 'converts.'], tone: '#d4af37', ink: '#0b0a08' },
+    '/services/ugc-video-production-jaipur': { line: ['Real people.', 'Real trust.'], tone: '#e4d5b7', ink: '#0b0a08' },
+    '/services/website-design-development-jaipur': { line: ['Fast. Findable.', 'Yours.'], tone: '#141210', ink: '#f4efe3' },
 };
 
 function ServiceCard({ s, index }: { s: Service; index: number }) {

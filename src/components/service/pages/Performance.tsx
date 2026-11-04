@@ -1,6 +1,6 @@
 'use client';
 import Button from '../../ui/Button';
-import { Crumbs, getPage, Head, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
+import { type BespokeProps, Crumbs, getPage, Head, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
 import { useReveal } from '@/lib/motion';
 
 const { s, next } = getPage('performance');
@@ -203,15 +203,17 @@ function Algorithm() {
     );
 }
 
-export default function PerformancePage() {
+export default function PerformancePage({ children, faq, after }: BespokeProps) {
     return (
         <main className="svcp svcp--perf">
             <Hero />
             <Levers />
             <Split />
             <Algorithm />
-            <ServiceFaq s={s} />
+            {children}
+            <ServiceFaq s={s} items={faq} />
             <ServiceEnd s={s} />
+            {after}
             <NextService next={next} />
         </main>
     );

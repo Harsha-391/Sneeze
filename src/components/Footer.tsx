@@ -3,110 +3,122 @@ import Link from 'next/link';
 import { useLenis } from 'lenis/react';
 import Button from './ui/Button';
 import Waves from './Waves';
-import { CONTACTS, SERVICES_DATA } from '../constants';
-import { addressLine, BUSINESS } from '@/content/site';
+import { addressLine, BUSINESS, isSet, socialLinks, telHref, waHref } from '@/config/site';
+import { COMPANY, INDUSTRIES, LOCATIONS, PILLAR, RESOURCES, SERVICES, STUDIO } from '@/content/routes';
 import { useReveal } from '@/lib/motion';
 
 const WORD = ['S', 'N', 'E', 'E', 'Z', 'E', '.'];
+
+const COLUMNS = [
+    { title: 'Services', links: [PILLAR, ...SERVICES, ...STUDIO] },
+    { title: 'Industries', links: INDUSTRIES },
+    { title: 'Locations', links: LOCATIONS },
+    { title: 'Resources', links: [...RESOURCES, ...COMPANY.slice(0, 3)] },
+];
 
 export default function Footer() {
     const lenis = useLenis();
     const statementRef = useReveal<HTMLDivElement>();
     const wordRef = useReveal<HTMLDivElement>({ rootMargin: '0px 0px -5% 0px' });
     const gridRef = useReveal<HTMLDivElement>();
+    const social = socialLinks();
 
     return (
         <footer className="site-footer">
             <Waves />
 
             <div ref={statementRef} className="wrap">
-                <h2 className="footer__statement serif lead rv-fade">
+                <p className="footer__statement serif lead rv-fade">
                     Sneeze Media is a full-stack creative studio in <em>Jaipur</em> where AI, design and performance marketing
                     collide, building brands that spread.
-                </h2>
+                </p>
                 <div className="footer__cta rv-fade" style={{ '--d': '150ms' } as React.CSSProperties}>
-                    <Button href="/project" variant="solid">
+                    <Button href="/contact" variant="solid">
                         Let&apos;s Connect
                     </Button>
                 </div>
             </div>
 
             <div className="wrap">
-                <div ref={wordRef} className="wordmark" aria-label="Sneeze.">
+                <div ref={wordRef} className="wordmark" aria-hidden="true">
                     {WORD.map((l, i) => (
-                        <span key={i} className={l === '.' ? 'dot' : ''} style={{ '--i': i } as React.CSSProperties} aria-hidden="true">
+                        <span key={i} className={l === '.' ? 'dot' : ''} style={{ '--i': i } as React.CSSProperties}>
                             {l}
                         </span>
                     ))}
                 </div>
 
-                <div ref={gridRef} className="footer__grid">
-                    <div className="rv-fade">
-                        <h3 className="serif">Partnering with ambitious brands &amp; bold people.</h3>
+                <div ref={gridRef} className="footer__grid footer__grid--wide">
+                    <div className="footer__nap rv-fade">
+                        <h2 className="serif">Partnering with ambitious brands &amp; bold people.</h2>
                         <address className="footer__addr">
-                            {BUSINESS.name}
+                            <strong>{BUSINESS.name}</strong>
                             <br />
                             {BUSINESS.tagline}
                             <br />
                             {addressLine()}
-                            {BUSINESS.email && (
-                                <>
-                                    <br />
-                                    <a className="uline" href={`mailto:${BUSINESS.email}`}>
-                                        {BUSINESS.email}
-                                    </a>
-                                </>
-                            )}
                         </address>
-                    </div>
-
-                    <div className="footer__col rv-fade" style={{ '--i': 1 } as React.CSSProperties}>
-                        <h4>Call</h4>
-                        <ul>
-                            {CONTACTS.map((c) => (
-                                <li key={c.number}>
-                                    <a className="uline" href={`tel:+${c.number.replace(/\D/g, '')}`}>
-                                        {c.number}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div className="footer__col rv-fade" style={{ '--i': 2 } as React.CSSProperties}>
-                        <h4>WhatsApp</h4>
-                        <ul>
-                            {CONTACTS.map((c) => (
-                                <li key={c.number}>
-                                    <a className="uline" href={`https://wa.me/${c.number.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer">
-                                        {c.label} chat
+                        <ul className="footer__contact">
+                            {BUSINESS.phones.map((p) => (
+                                <li key={p}>
+                                    <a className="uline" href={telHref(p)}>
+                                        {p}
                                     </a>
                                 </li>
                             ))}
                             <li>
-                                <Link className="uline" href="/project">
-                                    Project form
-                                </Link>
+                                <a className="uline" href={waHref(BUSINESS.whatsapp)} target="_blank" rel="noopener noreferrer">
+                                    WhatsApp chat
+                                </a>
                             </li>
+                            {isSet(BUSINESS.email) && (
+                                <li>
+                                    <a className="uline" href={`mailto:${BUSINESS.email}`}>
+                                        {BUSINESS.email}
+                                    </a>
+                                </li>
+                            )}
                         </ul>
+                        {social.length > 0 && (
+                            <ul className="footer__social" aria-label="Sneeze Media on social media">
+                                {social.map((s) => (
+                                    <li key={s.href}>
+                                        <a className="uline" href={s.href} target="_blank" rel="noopener noreferrer me">
+                                            {s.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
 
-                    <div className="footer__col rv-fade" style={{ '--i': 3 } as React.CSSProperties}>
-                        <h4>Services</h4>
-                        <ul>
-                            {SERVICES_DATA.map((s) => (
-                                <li key={s.href}>
-                                    <Link className="uline" href={s.href}>
-                                        {s.title}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    {COLUMNS.map((col, i) => (
+                        <nav key={col.title} className="footer__col rv-fade" style={{ '--i': i + 1 } as React.CSSProperties} aria-label={`${col.title} links`}>
+                            <h3>{col.title}</h3>
+                            <ul>
+                                {col.links.map((l) => (
+                                    <li key={l.href}>
+                                        <Link className="uline" href={l.href} prefetch={false}>
+                                            {l.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    ))}
                 </div>
 
                 <div className="footer__bottom">
-                    <p>© {new Date().getFullYear()} Sneeze Media · Creative &amp; digital marketing agency in Jaipur. All rights reserved.</p>
+                    <p>
+                        © {new Date().getFullYear()} Sneeze Media · Creative &amp; digital marketing agency in Jaipur ·{' '}
+                        <Link href="/privacy-policy" className="uline" prefetch={false}>
+                            Privacy
+                        </Link>{' '}
+                        ·{' '}
+                        <Link href="/terms" className="uline" prefetch={false}>
+                            Terms
+                        </Link>
+                    </p>
                     <button
                         type="button"
                         className="to-top"

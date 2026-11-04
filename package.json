@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/gen-content-index.mjs && next dev",
+    "prebuild": "node scripts/gen-content-index.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "content:check": "node --experimental-strip-types --no-warnings scripts/check-content.mts --all",
+    "seo:check": "node scripts/seo-check.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.23.26",

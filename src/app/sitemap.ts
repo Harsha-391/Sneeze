@@ -1,26 +1,32 @@
-import { MetadataRoute } from 'next';
-import { SITE_URL } from '@/content/site';
+import type { MetadataRoute } from 'next';
+import { SITE_URL } from '@/config/site';
+import { PUBLISHED_CASE_STUDIES } from '@/content/case-studies';
+import { allDataRoutes, STUDIO_ONLY } from '@/content/registry';
 
-// Bump this when page content meaningfully changes (tells Google to recrawl).
-const LAST_UPDATED = new Date('2026-11-03');
-
-const ROUTES: { path: string; priority: number }[] = [
-    { path: '', priority: 1 },
-    { path: '/web-experience', priority: 0.9 },
-    { path: '/social-cults', priority: 0.9 },
-    { path: '/performance', priority: 0.9 },
-    { path: '/ai-visuals', priority: 0.8 },
-    { path: '/editorial', priority: 0.8 },
-    { path: '/ugc', priority: 0.8 },
-    { path: '/project', priority: 0.7 },
+/** Fixed pages: bump the date when their content meaningfully changes. */
+const STATIC: { path: string; updated: string; priority: number }[] = [
+    { path: '/', updated: '2026-11-04', priority: 1 },
+    { path: '/services', updated: '2026-11-04', priority: 0.8 },
+    { path: '/industries', updated: '2026-11-04', priority: 0.7 },
+    { path: '/locations', updated: '2026-11-04', priority: 0.7 },
+    { path: '/blog', updated: '2026-11-04', priority: 0.6 },
+    { path: '/contact', updated: '2026-11-04', priority: 0.7 },
+    { path: '/project', updated: '2026-11-04', priority: 0.5 },
+    ...Object.keys(STUDIO_ONLY).map((slug) => ({ path: `/services/${slug}`, updated: '2026-11-04', priority: 0.7 })),
 ];
 
+/** Generated from the content registries, so every page is listed automatically. */
 export default function sitemap(): MetadataRoute.Sitemap {
-    return ROUTES.map(({ path, priority }) => ({
-        url: `${SITE_URL}${path}`,
-        lastModified: LAST_UPDATED,
-        changeFrequency: 'monthly',
+    const routes = [
+        ...STATIC,
+        ...allDataRoutes(),
+        ...PUBLISHED_CASE_STUDIES.map((c) => ({ path: `/case-studies/${c.slug}`, updated: c.updated, priority: 0.6 })),
+    ];
+    return routes.map(({ path, updated, priority }) => ({
+        url: `${SITE_URL}${path === '/' ? '' : path}`,
+        lastModified: new Date(updated),
+        changeFrequency: path.startsWith('/blog') ? 'monthly' : 'monthly',
         priority,
-        images: path === '' ? [`${SITE_URL}/og.png`] : undefined,
+        ...(path === '/' ? { images: [`${SITE_URL}/og.png`] } : {}),
     }));
 }

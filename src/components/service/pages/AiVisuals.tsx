@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useLenis } from 'lenis/react';
 import { useEffect, useRef, useState } from 'react';
 import Button from '../../ui/Button';
-import { Crumbs, getPage, Head, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
+import { type BespokeProps, Crumbs, getPage, Head, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
 import { useIsVisible, useMediaQuery, useReveal } from '@/lib/motion';
 
 const { s, next } = getPage('ai-visuals');
@@ -235,15 +235,17 @@ function Protocol() {
     );
 }
 
-export default function AiVisualsPage() {
+export default function AiVisualsPage({ children, faq, after }: BespokeProps) {
     return (
         <main className="svcp svcp--ai">
             <Hero />
             <Vectors />
             <Compare />
             <Protocol />
-            <ServiceFaq s={s} />
+            {children}
+            <ServiceFaq s={s} items={faq} />
             <ServiceEnd s={s} />
+            {after}
             <NextService next={next} />
         </main>
     );

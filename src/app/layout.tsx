@@ -2,13 +2,16 @@ import type { Metadata, Viewport } from 'next';
 import { Inter, Instrument_Serif, Oswald } from 'next/font/google';
 import './globals.css';
 import './service-pages.css';
+import './longform.css';
 import SmoothScroll from '../components/SmoothScroll';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Cursor from '../components/Cursor';
 import PageTransition from '../components/PageTransition';
+import FloatingContact from '../components/FloatingContact';
 import JsonLd from '../components/seo/JsonLd';
-import { BUSINESS, HOME_SEO, SITE_URL } from '../content/site';
+import { HOME_SEO } from '../content/site';
+import { BUSINESS, SITE_URL } from '../config/site';
 import { organizationSchema } from '../content/seo';
 
 const oswald = Oswald({ subsets: ['latin'], weight: ['400', '500', '700'], variable: '--font-oswald', display: 'swap' });
@@ -63,7 +66,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="en-IN" className={`${oswald.variable} ${inter.variable} ${serif.variable}`}>
+        <html lang="en-IN" className={`${oswald.variable} ${inter.variable} ${serif.variable}`} suppressHydrationWarning>
+            <head>
+                {/* Progressive enhancement: reveal animations only hide content once JS is known to run. */}
+                <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+            </head>
             <body>
                 <JsonLd data={organizationSchema()} />
                 <SmoothScroll>
@@ -75,6 +82,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     </div>
                     <PageTransition />
                 </SmoothScroll>
+                <FloatingContact />
                 <Cursor />
                 <div className="grain" aria-hidden="true" />
             </body>

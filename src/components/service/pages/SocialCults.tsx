@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { useRef } from 'react';
 import Button, { Arrow } from '../../ui/Button';
-import { Crumbs, getPage, Head, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
+import { type BespokeProps, Crumbs, getPage, Head, Kicker, Lines, NextService, ServiceEnd, ServiceFaq, useEnterReveal } from '../parts';
 import { useReveal } from '@/lib/motion';
 
 const { s, next } = getPage('social-cults');
@@ -144,7 +144,7 @@ function Deliverables() {
     );
 }
 
-export default function SocialCultsPage() {
+export default function SocialCultsPage({ children, faq, after }: BespokeProps) {
     return (
         <main className="svcp svcp--soc">
             <Hero />
@@ -152,8 +152,10 @@ export default function SocialCultsPage() {
             <Weapons />
             <Ritual />
             <Deliverables />
-            <ServiceFaq s={s} />
+            {children}
+            <ServiceFaq s={s} items={faq} />
             <ServiceEnd s={s} />
+            {after}
             <NextService next={next} />
         </main>
     );

@@ -4,14 +4,12 @@ import { useEffect, useRef, useState } from 'react';
 import { FaPhone, FaWhatsapp } from 'react-icons/fa';
 import Button from '../ui/Button';
 import { CONTACTS } from '@/constants';
-import { OBJECTIVES, SERVICE_PAGES } from '@/content/services';
+import { OBJECTIVES, OBJECTIVE_BY_SLUG } from '@/content/objectives';
+import { FORM_ACCESS_KEY, FORM_ENDPOINT } from '@/config/site';
 import { usePageReady, useReveal } from '@/lib/motion';
 
-// web3forms.com public access key (safe to ship: it only allows sending to the owner's inbox)
-const ACCESS_KEY = 'cc43b0dc-0e85-4c41-95a4-7c64e1378e8f';
-
 type Form = { name: string; brand: string; email: string; objective: string; details: string };
-const EMPTY: Form = { name: '', brand: '', email: '', objective: 'Brand Identity', details: '' };
+const EMPTY: Form = { name: '', brand: '', email: '', objective: 'Full digital marketing plan', details: '' };
 
 const NEXT_STEPS = [
     { title: 'We read your brief', text: 'We go through your goals, audience and references.' },
@@ -87,9 +85,9 @@ export default function ProjectPage() {
     // Coming from a service page? Pre-select that objective (?service=slug).
     useEffect(() => {
         const slug = new URLSearchParams(window.location.search).get('service');
-        const match = SERVICE_PAGES.find((s) => s.slug === slug);
+        const match = slug ? OBJECTIVE_BY_SLUG[slug] : undefined;
         // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time read of the URL after mount
-        if (match) setForm((f) => ({ ...f, objective: match.objective }));
+        if (match) setForm((f) => ({ ...f, objective: match }));
     }, []);
 
     const update = (name: keyof Form, value: string) => setForm((f) => ({ ...f, [name]: value }));
@@ -98,10 +96,10 @@ export default function ProjectPage() {
         e.preventDefault();
         setStatus('submitting');
         try {
-            const res = await fetch('https://api.web3forms.com/submit', {
+            const res = await fetch(FORM_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                body: JSON.stringify({ access_key: ACCESS_KEY, ...form, subject: `New Project Inquiry: ${form.brand}` }),
+                body: JSON.stringify({ access_key: FORM_ACCESS_KEY, ...form, subject: `New Project Inquiry: ${form.brand}` }),
             });
             const result = await res.json();
             if (result.success) {

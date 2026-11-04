@@ -1,9 +1,9 @@
 'use client';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import Button, { Arrow } from '../ui/Button';
 import Faq from '../Faq';
-import { SERVICE_PAGES, type Line, type ServiceContent } from '@/content/services';
+import { SERVICE_PAGES, type Line, type ServiceContent } from '@/content/studio';
 import { usePageReady, useReveal } from '@/lib/motion';
 
 /** Ref that gets `is-in` once the page curtain has lifted (or right away on a fresh load). */
@@ -54,7 +54,7 @@ export function Crumbs({ title }: { title: string }) {
         <nav className="crumbs rv-fade" aria-label="Breadcrumb">
             <Link href="/">Home</Link>
             <i>/</i>
-            <Link href="/#services">Services</Link>
+            <Link href="/services">Services</Link>
             <i>/</i>
             <span aria-current="page">{title}</span>
         </nav>
@@ -73,7 +73,17 @@ export function Kicker({ text, delay = 0 }: { text: string; delay?: number }) {
     );
 }
 
-export function ServiceFaq({ s }: { s: ServiceContent }) {
+/** Extra content the /services route passes into a hand-built layout. */
+export type BespokeProps = {
+    /** Long-form article, rendered after the layout's own sections. */
+    children?: ReactNode;
+    /** Replaces the layout's built-in FAQ. */
+    faq?: { q: string; a: string }[];
+    /** Rendered after the closing CTA (related links). */
+    after?: ReactNode;
+};
+
+export function ServiceFaq({ s, items }: { s: ServiceContent; items?: { q: string; a: string }[] }) {
     return (
         <Faq
             id="faq"
@@ -83,7 +93,7 @@ export function ServiceFaq({ s }: { s: ServiceContent }) {
                     Good <em>questions.</em>
                 </>
             }
-            items={s.seo.faq}
+            items={items ?? s.seo.faq}
         />
     );
 }
