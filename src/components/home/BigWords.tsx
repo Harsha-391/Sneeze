@@ -71,7 +71,8 @@ export default function BigWords() {
                                 setActive(wi);
                             }}
                         >
-                            <span className="bigword__text" aria-label={w.word}>
+                            <span className="bigword__text">
+                                <span className="sr-only">{w.word}</span>
                                 {w.word.split('').map((l, i) => (
                                     <span key={i} className="bigword__letter" style={{ '--i': i } as React.CSSProperties} aria-hidden="true">
                                         <span>{l}</span>

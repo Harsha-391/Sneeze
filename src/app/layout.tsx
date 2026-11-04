@@ -9,6 +9,7 @@ import Footer from '../components/Footer';
 import Cursor from '../components/Cursor';
 import PageTransition from '../components/PageTransition';
 import FloatingContact from '../components/FloatingContact';
+import Analytics from '../components/Analytics';
 import JsonLd from '../components/seo/JsonLd';
 import { HOME_SEO } from '../content/site';
 import { BUSINESS, SITE_URL } from '../config/site';
@@ -68,8 +69,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en-IN" className={`${oswald.variable} ${inter.variable} ${serif.variable}`} suppressHydrationWarning>
             <head>
-                {/* Progressive enhancement: reveal animations only hide content once JS is known to run. */}
-                <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+                {/* Progressive enhancement: reveals only hide content once JS is known to run; first-load lets heroes animate from the first paint. */}
+                <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js','first-load')" }} />
             </head>
             <body>
                 <JsonLd data={organizationSchema()} />
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     <PageTransition />
                 </SmoothScroll>
                 <FloatingContact />
+                <Analytics />
                 <Cursor />
                 <div className="grain" aria-hidden="true" />
             </body>

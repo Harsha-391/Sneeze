@@ -65,6 +65,8 @@ export default function PageTransition() {
             if (busy.current || !el) return;
             busy.current = true;
             const fast = reduced();
+            // From now on heroes wait for the curtain (JS reveal), not the first paint.
+            html.classList.remove('first-load');
 
             if (labelRef.current) labelRef.current.textContent = labelFor(url.pathname);
 
@@ -140,6 +142,7 @@ export default function PageTransition() {
         if (prev === null || prev === pathname) return;
 
         const html = document.documentElement;
+        html.classList.remove('first-load');
         const p = pending.current;
         const l = lenisRef.current;
 

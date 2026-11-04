@@ -1930,3 +1930,72 @@ html.pt-leave .float-cta {
         display: block;
     }
 }
+
+/* =====================================================================
+   FIRST PAINT HERO ENTRANCE
+   On a fresh page load the hero animates with CSS keyframes straight
+   from the first paint (fast LCP, no waiting for hydration). After a
+   client-side navigation, html.first-load is removed and heroes go back
+   to the curtain-timed JS reveal.
+   ===================================================================== */
+@keyframes rv-in-fade {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 28px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes rv-in-line {
+    from {
+        transform: translate3d(0, 112%, 0) rotate(2deg);
+    }
+    to {
+        transform: none;
+    }
+}
+
+html.first-load :is(.lf-hero, .ai-hero, .soc-hero, .ed-cover, .perf-hero, .ugc-hero, .web-hero, .contact__hero) .rv-fade {
+    animation: rv-in-fade 1s var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 80ms + var(--d, 0ms) * 0.6);
+}
+
+html.first-load :is(.lf-hero, .ai-hero, .soc-hero, .ed-cover, .perf-hero, .ugc-hero, .web-hero, .contact__hero) .rv-line > span {
+    animation: rv-in-line 1.15s var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 95ms + var(--d, 0ms) * 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.first-load .rv-fade,
+    html.first-load .rv-line > span {
+        animation: none !important;
+    }
+}
+
+/* grid children must be allowed to shrink, or wide tables push the page sideways */
+.lf-body > *,
+.lf-hero__grid > *,
+.contact-grid > *,
+.hub__items > *,
+.dir__grid > * {
+    min-width: 0;
+}
+
+/* very narrow phones: long CTA labels tighten instead of overflowing */
+@media (max-width: 420px) {
+    .md-cta {
+        padding: 22px 18px;
+    }
+
+    .md-cta .btn,
+    .lf-hero__actions .btn,
+    .send .btn {
+        max-width: 100%;
+        padding-left: 18px;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+    }
+}

@@ -9,7 +9,8 @@ export const dynamic = 'force-static';
  * engines, generated from the same registries as the sitemap.
  */
 export function GET() {
-    const line = (label: string, path: string, text: string) => `- [${label}](${SITE_URL}${path}): ${text}`;
+    const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+    const line = (label: string, path: string, text: string) => `- [${cap(label)}](${SITE_URL}${path}): ${text}`;
     const body = [
         `# ${BUSINESS.name}`,
         '',

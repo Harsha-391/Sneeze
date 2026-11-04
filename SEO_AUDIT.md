@@ -110,3 +110,21 @@ Each Jaipur page owns one intent:
 6. **Case studies.** The template ships with zero entries; nothing is invented. The index explains how results are measured and reported.
 7. **Blog byline** is "Sneeze Media Team" until real author names and bios are provided.
 8. **No fabricated facts.** No client names, testimonials, ratings, awards, years in business or results. Stat blocks use process facts or well-known public platform facts only.
+
+---
+
+## Results after the expansion (Phase 7 QA, 2026-11-04)
+
+| Check | Result |
+|---|---|
+| `npm run build` (incl. TypeScript) and `eslint src` | Pass. 65 routes prerendered as static HTML. |
+| `npm run content:check` (47 content files) | Pass. Every page meets its word minimum, has the keyword in its H1 and first 100 words, has 4–8 FAQs, a visual block and 3+ internal links. No duplicate titles, H1s or descriptions, no shared 6-word passages and no banned claims. |
+| `npm run seo:check` (built HTML, 57 indexable pages) | 0 errors, 0 warnings. One H1 per page; unique titles (50–61 chars) and descriptions (148–160); canonical on every page; no noindex; valid JSON-LD with required fields; every page in the sitemap and vice versa; no broken internal links; no `TODO_` leaked into HTML. |
+| JSON-LD per template | Organization + ProfessionalService on every page. WebSite (home). Service + BreadcrumbList + FAQPage (services, industries, combos, locations, pillar). BlogPosting + BreadcrumbList + FAQPage (blog). AboutPage / ContactPage / CollectionPage / WebPage on the info pages. |
+| Content without JavaScript | All text visible on 13 sampled pages: reveals, FAQ answers and the manifesto all show, and the preloader is skipped. |
+| Phone width (390 px) | All 57 pages: no horizontal overflow. |
+| Lighthouse, mobile (SEO / A11y / Best practices / Performance) | SEO **100** on every template. Inner pages: performance **92–97**, accessibility 96–100, best practices 100, CLS 0. Homepage: performance 86, held back by the intentional intro preloader (LCP about 4 s); accessibility 92, because of the low-contrast manifesto words that light up on scroll by design. |
+| Scroll smoothness (frame timing, 4× CPU throttle) | 60 fps with 0 long tasks on the longest pages (pillar, Jaipur, blog, website design). |
+| Transitions | Curtain transitions, mega-menu, contents anchors, related links, 301s from old URLs and 404 for unknown slugs all verified. |
+
+Page count went from 8 to 57 indexable URLs, with about 85,000 words of unique, checked content. What's still needed from the owner is in `CONTENT_TODOS.md`; the steps after deploy are in `SEO_LAUNCH_CHECKLIST.md`.

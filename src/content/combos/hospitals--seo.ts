@@ -170,7 +170,7 @@ We are honest about pace. Cardiology, oncology and orthopaedics take longer to m
     cta: {
         title: 'Find out what is holding your hospital back in search.',
         text: 'Share your website and the departments you want patients to find. We will audit structure, content and technical health, and send a compliant 90-day plan.',
-        label: 'Request a hospital SEO audit',
+        label: 'Get a hospital SEO audit',
     },
 };
 
