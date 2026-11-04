@@ -9,10 +9,11 @@ import Decrypt from '@/components/home/Decrypt';
 import Arsenal from '@/components/home/Arsenal';
 import Promises from '@/components/home/Promises';
 import LocalSeo from '@/components/home/LocalSeo';
+import Directory from '@/components/home/Directory';
 import Faq from '@/components/Faq';
 import JsonLd from '@/components/seo/JsonLd';
 import { HOME_SEO } from '@/content/site';
-import { faqSchema, pageMetadata } from '@/content/seo';
+import { faqSchema, pageMetadata, websiteSchema } from '@/content/seo';
 
 export const metadata = pageMetadata({
     title: HOME_SEO.title,
@@ -25,7 +26,7 @@ export const metadata = pageMetadata({
 export default function Home() {
     return (
         <main className="home">
-            <JsonLd data={faqSchema(HOME_SEO.faq)} />
+            <JsonLd data={[websiteSchema(), faqSchema(HOME_SEO.faq)]} />
             <Preloader />
             <Hero />
             <StatsStrip />
@@ -37,6 +38,7 @@ export default function Home() {
             <Arsenal />
             <Promises />
             <LocalSeo />
+            <Directory />
             <Faq
                 id="faq"
                 eyebrow="FAQ · Creative agency in Jaipur"
